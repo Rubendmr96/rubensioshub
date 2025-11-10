@@ -8,17 +8,11 @@
     <meta name="description" content="Hub central para aplicaciones y webs de Rubén" />
     <style>
         :root {
-            /* Paleta verde suave y apagada */
             --bg: #eef7f2;
-            /* fondo general: verde muy claro */
             --card: #f7fbf9;
-            /* tarjetas: blanco con tinte verde */
             --muted: #4b6b56;
-            /* texto secundario: verde grisáceo */
             --accent: #2f855a;
-            /* color principal: verde moderado */
             --glass: rgba(47, 133, 90, 0.06);
-            /* overlay sutil verde */
             --radius: 12px;
             --shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
             --max-width: 1100px;
@@ -127,6 +121,7 @@
             box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
         }
 
+        /* ICON CONTAINER: forzar transparencia y evitar halos */
         .icon {
             width: 56px;
             height: 56px;
@@ -137,26 +132,46 @@
             justify-content: center;
             flex: 0 0 56px;
             border: 1px solid rgba(47, 133, 90, 0.06);
-            background: transparent;
-            box-shadow: var(--shadow);
+            background: transparent !important;
+            /* asegurar transparencia del contenedor */
+            box-shadow: none;
+            /* evitar halos por sombra */
             padding: 0;
+            box-sizing: border-box;
         }
 
+        /* IMAGEN DENTRO DEL ICON: mantener proporción sin recortar */
         .icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
             display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            /* evita recortes, preserva aspecto */
+            object-position: center;
+            background: transparent !important;
+            /* asegurar transparencia */
+            padding: 0 !important;
+            margin: auto;
+            box-shadow: none !important;
+            border-radius: 0;
         }
 
-        /* Clase para imágenes que no deben recortarse */
+        /* si se usa la clase no-crop, mantener el mismo comportamiento */
         .icon img.no-crop {
             object-fit: contain;
-            object-position: center;
-            background: var(--card);
-            padding: 6px;
-            box-sizing: border-box;
+            background: transparent !important;
+            padding: 0 !important;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+
+        /* Forzar que cualquier rect dentro del fallback SVG no pinte fondo */
+        .icon svg rect {
+            fill: none !important;
         }
 
         .meta {
@@ -166,7 +181,7 @@
         .meta h3 {
             margin: 0;
             font-size: 1rem;
-            color: #0f172a;
+            color: #0f172a
         }
 
         .meta p {
@@ -183,13 +198,20 @@
             border-radius: 10px;
             text-decoration: none;
             font-size: 0.9rem;
-            align-self: center;
+            align-self: center
         }
 
-        /* pequeños toques: etiquetas y fondos sutiles */
         .tag {
             background: rgba(47, 133, 90, 0.06);
-            color: var(--muted);
+            color: var(--muted)
+        }
+
+        /* Accessibility focus */
+        .show-focus a:focus,
+        .show-focus button:focus {
+            outline: 3px solid rgba(47, 133, 90, 0.18);
+            outline-offset: 3px;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -215,30 +237,75 @@
 
                     <div class="meta">
                         <h3>De paseo por Rocavelo</h3>
-                        <p>Blog personal donde hablo de diferentes cosas.</p>
+                        <p>Blog personal donde hablo de diferentes cosas</p>
                     </div>
-                    <a class="open" href="https://depaseoporrocavelo.blogspot.com/" target="_blank"
-                        rel="noopener">Abrir</a>
+                    <a class="open" href="https://depaseoporrocavelo.blogspot.com/" rel="noopener">Abrir</a>
                 </article>
 
                 <article class="card" data-tags="app,dashboard">
                     <div class="icon" aria-hidden="true">
-                        <img src="assets/images/icons/D-Scan2Kouji.webp" alt="Logotipo de D-Scan" loading="lazy"
-                            width="56" height="56" class="no-crop">
+                        <!-- imagen PNG con transparencia; CSS fuerza transparencia y contain para evitar recortes -->
+                        <img id="dtector-1" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo de D-Scan"
+                            loading="lazy" width="56" height="56" class="no-crop"
+                            onerror="this.style.display='none'; document.getElementById('dtector-1-fallback').style.display='block'">
+                        <!-- fallback SVG sin rect de fondo para mantener transparencia -->
+                        <svg id="dtector-1-fallback" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true" role="img" style="display:none;width:100%;height:100%;"
+                            preserveAspectRatio="xMidYMid meet">
+                            <g fill="#2f855a" font-family="monospace" font-weight="700" font-size="26"
+                                text-anchor="middle">
+                                <text x="50%" y="50%" dominant-baseline="middle">DF</text>
+                            </g>
+                        </svg>
                     </div>
                     <div class="meta">
                         <h3>La Frontera Digimon</h3>
                         <p>Guía del D-Tector de Digimon</p>
                     </div>
-                    <a class="open" href="https://fronteradigimon.vercel.app/" target="_blank" rel="noopener">Abrir</a>
+                    <a class="open" href="https://fronteradigimon.vercel.app/" rel="noopener">Abrir</a>
                 </article>
 
+                <article class="card" data-tags="app,dashboard">
+                    <div class="icon" aria-hidden="true">
+                        <img id="dtector-2" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo de D-Scan"
+                            loading="lazy" width="56" height="56" class="no-crop"
+                            onerror="this.style.display='none'; document.getElementById('dtector-2-fallback').style.display='block'">
+                        <svg id="dtector-2-fallback" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true" role="img" style="display:none;width:100%;height:100%;"
+                            preserveAspectRatio="xMidYMid meet">
+                            <g fill="#2f855a" font-family="monospace" font-weight="700" font-size="26"
+                                text-anchor="middle">
+                                <text x="50%" y="50%" dominant-baseline="middle">DF</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="meta">
+                        <h3>La Frontera Digimon - EN CONSTRUCCIÓN</h3>
+                        <p>Guía del D-Tector de Digimon</p>
+                    </div>
+                    <a class="open" href="la-frontera-digimon/index.html" rel="noopener">Abrir</a>
+                </article>
             </section>
         </main>
     </div>
 
     <script>
-        // Mejora de accesibilidad: focus visible para enlaces
+        // Mostrar fallback SVG si la imagen falla en cargar
+        ['dtector-1', 'dtector-2'].forEach(id => {
+            const img = document.getElementById(id);
+            if (!img) return;
+            img.addEventListener('error', () => {
+                const svg = document.getElementById(id + '-fallback');
+                if (svg) svg.style.display = 'block';
+            });
+            // Si la imagen carga correctamente, aseguramos que el fallback esté oculto
+            img.addEventListener('load', () => {
+                const svg = document.getElementById(id + '-fallback');
+                if (svg) svg.style.display = 'none';
+            });
+        });
+
+        // Accesibilidad: focus visible para enlaces
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') document.body.classList.add('show-focus');
         });
