@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>La Frontera Digimon</title>
+    <meta name="description"
+        content="La Frontera Digimon — Últimos vídeos del canal integrados en el estilo de la sub web" />
+    <style>
+        :root {
+            --bg: #eef6ff;
+            --card: #f7fbff;
+            --muted: #4b6b8a;
+            --text: #0f172a;
+            --accent: #2563eb;
+            --accent-2: #1e4fd8;
+            --radius: 12px;
+            --shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+            --max-width: 1100px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: linear-gradient(180deg, var(--bg), #fff);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .brand h1 {
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .brand p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .feature-link {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            padding: 12px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.03), transparent);
+            border: 1px solid rgba(37, 99, 235, 0.04);
+            transition: background .15s ease, transform .15s ease;
+        }
+
+        .feature-link:hover {
+            background: rgba(37, 99, 235, 0.06);
+            transform: translateY(-4px);
+        }
+
+        .icon {
+            width: 56px;
+            height: 56px;
+            flex: 0 0 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.04);
+            box-shadow: var(--shadow);
+        }
+
+        /* Libro: animación */
+        .feature-link:hover .book-page {
+            animation: pageFlip 1.1s ease forwards;
+        }
+
+        @keyframes pageFlip {
+            0% {
+                transform-origin: left center;
+                transform: rotateY(0deg);
+                fill: #eaf3ff;
+            }
+
+            45% {
+                transform-origin: left center;
+                transform: rotateY(32deg);
+                fill: #cfe3ff;
+            }
+
+            100% {
+                transform-origin: left center;
+                transform: rotateY(0deg);
+                fill: #eaf3ff;
+            }
+        }
+
+        /* Digi: control por clases específicas */
+        .digit-text,
+        .underscore {
+            font-family: monospace;
+            font-weight: 700;
+            shape-rendering: crispEdges;
+            text-anchor: middle;
+            dominant-baseline: hanging;
+            /* baseline adjustments are handled via y coords in SVG */
+        }
+
+        .digit-1,
+        .digit-2,
+        .digit-3 {
+            font-size: 14px;
+            opacity: 0;
+        }
+
+        .underscore-1,
+        .underscore-2,
+        .underscore-3 {
+            font-size: 14px;
+            opacity: 1;
+            fill: var(--muted);
+        }
+
+        /* Animaciones: timing ajustado para asegurar la aparición completa */
+        .feature-link:hover .digit-1 {
+            animation: typeIn 0.25s 0.12s forwards ease-out;
+        }
+
+        .feature-link:hover .underscore-1 {
+            animation: fadeOut 0.18s 0.12s forwards ease-out;
+        }
+
+        .feature-link:hover .digit-2 {
+            animation: typeIn 0.25s 0.44s forwards ease-out;
+        }
+
+        .feature-link:hover .underscore-2 {
+            animation: fadeOut 0.18s 0.44s forwards ease-out;
+        }
+
+        .feature-link:hover .digit-3 {
+            animation: typeIn 0.25s 0.76s forwards ease-out;
+        }
+
+        .feature-link:hover .underscore-3 {
+            animation: fadeOut 0.18s 0.76s forwards ease-out;
+        }
+
+        @keyframes typeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-2px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Videos y resto */
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .video-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            padding: 12px;
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #eaf3ff;
+        }
+
+        .thumbnail-container img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            transition: transform .3s ease;
+        }
+
+        .video-card:hover .thumbnail-container img {
+            transform: scale(1.03);
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        .play-icon::after {
+            content: '';
+            border-style: solid;
+            border-width: 10px 0 10px 16px;
+            border-color: transparent transparent transparent white;
+        }
+
+        .video-content {
+            padding: 10px 6px 0 6px;
+        }
+
+        .video-content h3 {
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .video-content .date {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .video-actions {
+            margin-top: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 8px 12px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background .18s ease, transform .18s ease;
+        }
+
+        .button:hover {
+            background: var(--accent-2);
+            transform: scale(1.03);
+        }
+
+        footer {
+            margin-top: 24px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width:640px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-icon {
+                height: 48px;
+            }
+
+            .features {
+                gap: 12px;
+            }
+
+            .video-card {
+                padding: 10px;
+            }
+        }
+
+        /* Letras y subrayados pixelados, grosor y posición */
+        .letter-base,
+        .digit-1,
+        .digit-2,
+        .digit-3 {
+            font-family: monospace;
+            font-weight: 800;
+            font-size: 14px;
+            shape-rendering: crispEdges;
+            text-shadow: 0.4px 0.4px var(--accent-2);
+        }
+
+        .digit-1,
+        .digit-2,
+        .digit-3 {
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .underscore-1,
+        .underscore-2,
+        .underscore-3 {
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .feature-link:hover .digit-1 {
+            animation: typeIn 0.25s 0.1s forwards;
+        }
+
+        .feature-link:hover .digit-2 {
+            animation: typeIn 0.25s 0.45s forwards;
+        }
+
+        .feature-link:hover .digit-3 {
+            animation: typeIn 0.25s 0.8s forwards;
+        }
+
+        .feature-link:hover .underscore-1 {
+            animation: fadeOut 0.2s 0.1s forwards;
+        }
+
+        .feature-link:hover .underscore-2 {
+            animation: fadeOut 0.2s 0.45s forwards;
+        }
+
+        .feature-link:hover .underscore-3 {
+            animation: fadeOut 0.2s 0.8s forwards;
+        }
+
+        @keyframes typeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-1px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="header-left">
+                <a href="index.html" aria-label="Ir a La Frontera Digimon — inicio">
+                    <img class="header-icon" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo D-Scan"
+                        loading="lazy" width="72" height="72">
+                </a>
+                <div class="brand">
+                    <h1>La Frontera Digimon</h1>
+                    <p>Web del canal La Frontera Digimon</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="features" aria-label="Secciones principales">
+                <!-- Guía D-Tector -->
+                <a class="feature-link" href="guia-d-tector.html">
+                    <div class="icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="56" height="56" role="img"
+                            aria-hidden="true">
+                            <rect x="2" y="2" width="2" height="12" fill="var(--accent-2)" />
+                            <rect x="4" y="2" width="5" height="12" fill="var(--accent)" />
+                            <rect class="book-page" x="9" y="2" width="5" height="12" fill="#eaf3ff" />
+                            <rect x="10" y="3" width="3" height="1" fill="#d6eaff" />
+                            <rect x="10" y="5" width="3" height="1" fill="#d6eaff" />
+                            <rect x="10" y="7" width="3" height="1" fill="#d6eaff" />
+                            <rect x="10" y="9" width="3" height="1" fill="#d6eaff" />
+                            <rect x="10" y="11" width="3" height="1" fill="#d6eaff" />
+                            <rect x="5" y="3" width="1" height="4" fill="#ffd166" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Guía D-Tector</h3>
+                        <p>Accede a la guía completa del D-Tector</p>
+                    </div>
+                </a>
+
+                <!-- Digi-Digits (alineado y grosor corregidos) -->
+                <a class="feature-link" href="digi-digits.html">
+                    <div class="icon" aria-hidden="true">
+                        <svg viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg" width="56" height="56" role="img"
+                            aria-hidden="true">
+                            <rect x="0.5" y="3" width="59" height="16" rx="2" fill="#cfe3ff" stroke="#b7d8ff"
+                                stroke-width="0.5" />
+                            <g font-family="monospace" font-weight="800" font-size="14" text-anchor="middle"
+                                fill="var(--accent)" shape-rendering="crispEdges">
+                                <!-- D fija -->
+                                <text x="10" y="16" class="letter-base">D</text>
+
+                                <!-- Guiones bajos iniciales -->
+                                <text class="underscore-1" x="20" y="16" fill="var(--muted)">_</text>
+                                <text class="underscore-2" x="30" y="16" fill="var(--muted)">_</text>
+                                <text class="underscore-3" x="40" y="16" fill="var(--muted)">_</text>
+
+                                <!-- Letras que aparecen -->
+                                <text class="digit-1" x="20" y="16">I</text>
+                                <text class="digit-2" x="30" y="16">G</text>
+                                <text class="digit-3" x="40" y="16">I</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Digi-Digits</h3>
+                        <p>Códigos D-Tector</p>
+                    </div>
+                </a>
+
+            </section>
+
+            <section>
+                <div class="card">
+                    <h3 style="margin:0 0 8px 0">Últimos vídeos</h3>
+                    <div id="videos" class="videos" aria-live="polite" aria-busy="true">
+                        <div class="placeholder">Cargando...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div><a href="https://rubendmr96.github.io/rubensioshub/" rel="noopener noreferrer">Rubensio's Hub</a></div>
+        </footer>
+    </div>
+
+    <script>
+        const CHANNEL_ID = "UCqc-fmnWOInmLb6D8aM1uHA";
+        const RSS_URL = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
+        const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${RSS_URL}`;
+        const container = document.getElementById("videos");
+
+        async function cargarVideos() {
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                container.innerHTML = '';
+                if (!data.items?.length) {
+                    container.innerHTML = '<div class="placeholder">No se encontraron vídeos.</div>';
+                    return;
+                }
+                data.items.slice(0, 3).forEach(video => {
+                    const card = document.createElement('article');
+                    card.className = 'video-card';
+                    card.innerHTML = `
+            <div class="thumbnail-container">
+              <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
+              <div class="play-icon"></div>
+            </div>
+            <div class="video-content">
+              <h3>${video.title}</h3>
+              <div class="date">${new Date(video.pubDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+              <div class="video-actions">
+                <a class="button" href="${video.link}" target="_blank" rel="noopener noreferrer">Ver en YouTube</a>
+              </div>
+            </div>`;
+                    card.querySelector('.thumbnail-container').onclick = () => window.open(video.link, '_blank', 'noopener');
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                container.innerHTML = '<div class="placeholder">Error al cargar los vídeos.</div>';
+            } finally {
+                container.setAttribute('aria-busy', 'false');
+            }
+        }
+
+        cargarVideos();
+    </script>
+</body>
+
+</html>

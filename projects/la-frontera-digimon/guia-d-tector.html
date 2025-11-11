@@ -1,0 +1,1348 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guía D-Tector — La Frontera Digimon</title>
+    <meta name="description"
+        content="Guía D-Tector — La Frontera Digimon. Guía completa y accesible sobre el D-Tector." />
+
+    <style>
+        :root {
+            --bg: #eef6ff;
+            --card: #f7fbff;
+            --muted: #4b6b8a;
+            --text: #0f172a;
+            --accent: #2563eb;
+            --accent-2: #1e4fd8;
+            --glass: rgba(37, 99, 235, 0.06);
+            --radius: 12px;
+            --shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+            --max-width: 1100px;
+            --base-size: 18px;
+            --line-height: 1.6;
+            --prose-max: 70ch;
+            --touch-min: 44px;
+        }
+
+        /* Reset y base */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: var(--base-size);
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(180deg, var(--bg), #ffffff);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: var(--line-height);
+            display: flex;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .skip-link:focus {
+            left: 16px;
+            top: 16px;
+            width: auto;
+            height: auto;
+            padding: 8px 12px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 8px;
+            z-index: 9999;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            background: transparent;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            background: transparent;
+            height: clamp(40px, 6vh, 72px);
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            flex: 0 0 auto;
+        }
+
+        .brand h1 {
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .brand p.lead {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* Mobile TOC toggle button (fixed on small screens) */
+        .toc-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            color: var(--accent);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toc-toggle:focus {
+            outline: 3px solid rgba(37, 99, 235, 0.18);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
+        @media (max-width:880px) {
+            .toc-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            /* fixed floating button */
+            .toc-toggle {
+                position: fixed;
+                right: 12px;
+                bottom: 12px;
+                z-index: 10002;
+                padding: 12px 14px;
+                border-radius: 12px;
+                background: #fff;
+                border: 1px solid rgba(37, 99, 235, 0.12);
+                box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+            }
+        }
+
+        /* Cards y tipografía */
+        .card {
+            background: linear-gradient(180deg, var(--glass), transparent);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            background-color: var(--card);
+            margin-bottom: 14px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin: 0 0 10px 0;
+            color: var(--text);
+            line-height: 1.15;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        h2.section-title {
+            font-size: 1.125rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        p {
+            margin: 0 0 12px 0;
+        }
+
+        .lead-paragraph {
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        ol,
+        ul {
+            margin: 0 0 12px 1.1rem;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover,
+        a:focus {
+            text-decoration: underline;
+        }
+
+        /* Grid principal */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width:880px) {
+            .content-grid {
+                grid-template-columns: 1fr 320px;
+                align-items: start;
+            }
+
+            .aside-card {
+                position: sticky;
+                top: 24px;
+            }
+        }
+
+        /* Tabla de contenidos */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin-bottom: 8px;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: var(--accent);
+            min-height: var(--touch-min);
+            line-height: 1.2;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background: rgba(37, 99, 235, 0.06);
+            outline: none;
+        }
+
+        nav a[aria-current="true"] {
+            font-weight: 700;
+            background: rgba(37, 99, 235, 0.08);
+        }
+
+        /* Summary / details styling */
+        details.collapsible {
+            margin-bottom: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        details summary {
+            cursor: pointer;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(37, 99, 235, 0.03);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.03);
+            list-style: none;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary::after {
+            content: "▸";
+            margin-left: auto;
+            transform: rotate(0deg);
+            transition: transform .18s ease;
+            color: var(--accent);
+        }
+
+        details[open] summary::after {
+            transform: rotate(90deg);
+        }
+
+        details .details-body {
+            padding: 12px;
+            background: transparent;
+        }
+
+        /* Aside controls (compact toggle) */
+        .aside-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            color: var(--accent);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-btn svg {
+            width: 14px;
+            height: 14px;
+            display: block;
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
+        }
+
+        .toggle-btn:focus {
+            outline: 3px solid rgba(37, 99, 235, 0.18);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
+        /* Back icon in TOC link */
+        .icon-back {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 8px;
+            fill: currentColor;
+            display: inline-block;
+        }
+
+        /* Mobile overlay behavior for aside */
+        @media (max-width:879px) {
+            .aside-card {
+                display: none;
+            }
+
+            .aside-card.open {
+                display: block;
+                position: fixed;
+                inset: 72px 12px 12px 12px;
+                z-index: 10001;
+                overflow: auto;
+                padding: 16px;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                border-radius: 12px;
+                box-shadow: 0 24px 60px rgba(2, 6, 23, 0.18);
+            }
+
+            .aside-backdrop {
+                position: fixed;
+                inset: 0;
+                z-index: 10000;
+                background: rgba(0, 0, 0, 0.36);
+                opacity: 0;
+                transition: opacity .18s ease;
+                pointer-events: none;
+            }
+
+            .aside-backdrop.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            nav a {
+                display: block;
+                padding: 12px 14px;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid rgba(37, 99, 235, 0.04);
+            }
+        }
+
+        /* Prose width */
+        .prose {
+            max-width: var(--prose-max);
+        }
+
+        @media (max-width:640px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+        }
+
+        .back-button {
+            display: none;
+            position: fixed;
+            left: 12px;
+            bottom: 12px;
+            z-index: 10002;
+            background: #fff;
+            color: var(--accent);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        .back-button .icon-back {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            vertical-align: middle;
+            fill: currentColor;
+        }
+
+        @media (max-width: 879px) {
+            .back-button {
+                display: inline-flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+
+    <div class="wrap" id="page">
+        <header>
+            <div class="header-left">
+                <a href="index.html" aria-label="Ir a La Frontera Digimon — inicio">
+                    <img id="header-logo" class="header-icon" src="assets/images/icons/d-tector_transparent.png"
+                        alt="Logotipo D-Scan" loading="lazy" width="72" height="72"
+                        onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
+                </a>
+
+                <svg id="logo-fallback" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                    role="img" style="display:none">
+                    <rect width="64" height="64" rx="10" fill="#eaf3ff" />
+                    <g fill="#2563eb" font-family="monospace" font-weight="700" font-size="26" text-anchor="middle">
+                        <text x="50%" y="50%" dominant-baseline="middle">D</text>
+                    </g>
+                </svg>
+
+                <div class="brand">
+                    <div>
+                        <h1>La Frontera Digimon</h1>
+                        <p class="lead">Guía D-Tector</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOC toggle for small screens (fixed via CSS) -->
+            <div>
+                <button id="toc-toggle" class="toc-toggle" aria-controls="aside-nav" aria-expanded="false"
+                    title="Mostrar índice">Índice</button>
+            </div>
+        </header>
+
+        <main id="main-content" tabindex="-1">
+            <div class="content-grid">
+                <!-- Contenido principal -->
+                <div>
+                    <article class="card prose" aria-labelledby="intro-title">
+                        <h2 id="intro-title" class="section-title">Introducción</h2>
+                        <p class="lead-paragraph">
+                            Esta guía se ha creado con mi experiencia de la versión 1.0 del D-Tector lanzado por Bandai
+                            en España en el año 2002.
+                            En ella se explicarán los diferentes tipos de ataques, el círculo de debilidades, los
+                            diferentes eventos que se pueden
+                            encontrar a lo largo del juego, los códigos para obtener los digimon del juego de cartas del
+                            D-Tector, etc.
+                        </p>
+
+                        <p>
+                            Antes de comenzar es conveniente conocer los botones del juego. El digivice cuenta con 5
+                            botones y 1 sensor de movimiento.
+                            En la parte frontal del dispositivo hay 3 botones: botón A (el de abajo), botón B (el del
+                            medio) y botón C (el de arriba).
+                            En el lateral izquierdo se encuentra otro botón al que llamaré "botón lateral" (aunque
+                            oficialmente se llama "botón del
+                            sensor de movimiento").
+                            En la parte trasera está el botón de reset, el cual es muy pequeño y de color rojo.
+                            Personalmente recomiendo usar un palillo
+                            al que se le haya retirado la punta para presionar dicho botón sin estropearlo.
+                            El sensor de movimiento está en la parte superior del dispositivo, al lado de los pines de
+                            conexión, protegido por una
+                            lámina de vidrio o plástico.
+                        </p>
+
+                        <p>
+                            Hay que recordar que este juguete cuenta con un podómetro incorporado. Es decir, lo ideal es
+                            colgar el digivice en el cinturón,
+                            pantalón o donde sea para sacarle el máximo partido, pero... nadie hace esto. Si agitas el
+                            D-Tector con la mano te cuenta
+                            los pasos igualmente, así que no hace falta que salgas a la calle cada vez que quieras
+                            jugar.
+                        </p>
+
+                        <p class="muted">
+                            Iré actualizando la guía con el paso del tiempo según vaya recopilando más información.
+                            Puedes contactar conmigo mediante mis
+                            redes sociales o mi correo electrónico si quieres que corrija o añada algo.
+                        </p>
+                    </article>
+
+                    <article class="card prose" aria-labelledby="aventura-title">
+                        <h2 id="aventura-title" class="section-title">¡Comienza la aventura!</h2>
+                        <p>
+                            Una vez le has puesto pilas nuevas y has presionado el botón reset aparecerá una pantalla en
+                            negro con unas líneas
+                            moviéndose en vertical. En ese momento puedes pulsar cualquier botón y... ¡te habrás
+                            transportado al mundo digital, donde te esperan
+                            epiquísimas batallas con tremendos efectos especiales!
+                        </p>
+                        <p>
+                            Lo primero es escoger a tu niño elegido. Escoge bien, pues dependiendo de quién escojas
+                            comenzarás con un espíritu digital diferente.
+                        </p>
+                        <p>
+                            Una vez has escogido a tu niño elegido es hora de ponerle nombre, para ello se nos presenta
+                            una (para nada tediosa)
+                            pantalla para introducirlo. Con el botón A avanzas en el alfabeto, con B seleccionas la
+                            letra que quieras y con el
+                            botón lateral se invierte el sentido en el que avanzas en el alfabeto.
+                        </p>
+                        <p>
+                            Ahora que has introducido el nombre de tu niño elegido, verás una preciosa animación en la
+                            que se nos muestra cómo
+                            viajas al mundo digital y cómo obtienes tu primer digimon para, acto seguido... ¡Comenzar la
+                            aventura!
+                        </p>
+                    </article>
+
+                    <article class="card prose" aria-labelledby="menus-title">
+                        <h2 id="menus-title" class="section-title">Pantallas y menús</h2>
+
+                        <section>
+                            <h3>Sonido</h3>
+                            <p>
+                                Para empezar, si quieres activar o desactivar el sonido del digivice tendrás que estar
+                                en la pantalla principal
+                                y pulsar los botones A y B al mismo tiempo. Cuesta hacerlo bien a la primera, no te
+                                preocupes, pero una vez que
+                                lo consigues basta con elegir SOUND ON o SOUND OFF para activar o desactivar el sonido
+                                respectivamente.
+                                Con el botón A puedes navegar entre ambas opciones y con el botón B seleccionas la que
+                                quieras.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3>Pantallas de información</h3>
+                            <p>
+                                Estando en la pantalla principal, si pulsas el botón B accederás a las pantallas de
+                                información de la aventura. Para pasar a la siguiente pantalla de información basta con
+                                seguir pulsando el botón B.
+                            </p>
+                            <p>
+                                En la primera pantalla de información verás la distancia (DISTANCE) que te queda para
+                                llegar al final del área en la que te encuentras. Esta distancia puede disminuir de
+                                varias formas. La principal es haciendo uso del podómetro del D-Tector, es decir, o bien
+                                caminando con él o agitándolo con la mano. Sin embargo, la distancia también puede
+                                disminuir con ciertos objetos que encontramos durante nuestra aventura o jugando a Speed
+                                Runner, uno de los juegos incluidos en el dispositivo. También podrás ver los pasos
+                                (STEPS) que has dado desde que comenzaste el juego.
+                            </p>
+                            <p>
+                                En la segunda pantalla podrás ver información acerca de los combates realizados contra
+                                otros dispositivos de Digimon mediante la función de conexión. VICTORY indica el
+                                porcentaje de victorias y WIN indica el número total de batallas ganadas.
+                            </p>
+                            <p>
+                                En la tercera pantalla podrás ver la energía o SPIRITS POWER que tienes. Este valor
+                                disminuye cada vez que utilizas un espíritu digital o un digimon ANCIENT y aumenta
+                                combatiendo contra otros digimon (sin utilizar espíritus ni digimon ANCIENT),
+                                descansando en el campamento o encontrando uno de los objetos del juego. Lo ideal es
+                                subirlo combatiendo, ya que en el campamento aumenta muy poco y el objeto es difícil de
+                                encontrar.
+                            </p>
+                            <p>
+                                Las cuatro últimas pantallas muestran los D-DOCKS, es decir, nuestro equipo de combate
+                                conformado por hasta 4 digimon diferentes. Si acabas de empezar partida, verás que solo
+                                hay un digimon en la D-DOCK1, pues es el digimon que tu personaje capturó en la
+                                animación del comienzo del juego. El resto de D-DOCKS estarán vacíos (EMPTY). Podrás
+                                elegir los 3 digimon restantes (o intercambiar los que ya tenías) desde la
+                                DIGI-DATABASE.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3>Menú 1</h3>
+                            <p>
+                                Al menú 1 se accede pulsando el botón A o el botón lateral desde la pantalla principal.
+                                Este menú cuenta con 5 opciones por las que podrás navegar pulsando el botón A. Una vez
+                                estás situado en la opción a la que deseas acceder basta con pulsar el botón B. Las
+                                opciones disponibles son:
+                            </p>
+
+                            <details class="collapsible" id="menu1-details">
+                                <summary aria-controls="menu1-body" aria-expanded="false">Menú 1 — MAP, STATUS, SPIRITS,
+                                    CAMP, CONNECT</summary>
+                                <div id="menu1-body" class="details-body">
+                                    <ol>
+                                        <li>
+                                            <strong>MAP</strong>
+                                            <p>El lugar donde tiene lugar tu aventura. El mundo digital. Consta de 4
+                                                mapas (MAP) con 3 áreas cada uno. Al comenzar partida estarás en el área
+                                                1 del MAP 1, sin embargo, puedes cambiar de área siempre que quieras.
+                                                Para hacerlo tienes que seleccionar el MAP al que quieres ir pulsando el
+                                                botón A. Una vez en el MAP de tu elección tendrás que pulsar el botón B
+                                                para seleccionarlo y pasar a la pantalla de selección de área. Cuando
+                                                estés en dicha pantalla tienes que elegir a cuál de las 3 áreas del MAP
+                                                quieres ir, navegando con A y seleccionando tu elección con B. En ese
+                                                momento aparecerán los pasos que necesitas dar para llegar al final del
+                                                área. Pulsa de nuevo B y ya estará.</p>
+                                            <p>El punto que parpadea es el área en el que te encuentras actualmente, los
+                                                puntos blancos son las áreas que aún no se han completado y los puntos
+                                                negros son las áreas completadas. El objetivo del juego es completar
+                                                todas las áreas. Para conseguirlo, hay que llegar al final de cada área
+                                                y vencer al BOSS que se encuentra al final de la misma. Una vez
+                                                superados los 4 mapas aparecerá un quinto mapa (la Dark Area) con una
+                                                sola área. Al llegar al final de la misma tendrás que derrotar al jefe
+                                                final del juego y lo habrás completado, pero no te preocupes, puedes
+                                                pasártelo las veces que quieras.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>STATUS</strong>
+                                            <p>Aquí podrás ver información de los diferentes niños elegidos que tienes
+                                                disponibles. Al comenzar el juego tendrás disponibles a Koji, JP, Zoe,
+                                                Tommy y Takuya, pero una vez completes el juego por primera vez también
+                                                estará disponible Koichi.</p>
+                                            <p>Cada niño elegido tiene unas características diferentes que aumentan con
+                                                el nivel: salud (representada con un corazón), spirit, stamina y skill.
+                                                Si alguien sabe cómo influyen estas estadísticas en combate, que se
+                                                ponga en contacto conmigo a través de Twitter.</p>
+                                            <p>Para subir de nivel hay que ganar combates.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>SPIRITS</strong>
+                                            <p>Cada niño elegido tiene dos espíritus digitales asociados, uno humano y
+                                                otro animal.</p>
+                                            <p>Al comienzo de la aventura solo contarás con el espíritu digital humano
+                                                del niño elegido que escogiste, sin embargo, superando las diferentes
+                                                áreas del mapa podrás conseguir el resto de espíritus digitales.</p>
+                                            <p>Durante la aventura, al perder un combate contra un BOSS podrá robarte un
+                                                espíritu digital. Podrás recuperarlo venciéndolo.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>CAMP</strong>
+                                            <p>Al perder un combate existe la posibilidad de que nuestro niño elegido
+                                                resulte herido. Esto lo sabrás porque, en la pantalla principal, se
+                                                queda agachado y con un símbolo encima de la cabeza.</p>
+                                            <p>Para curarlo, basta con hacerle entrar en el campamento y sacarlo de
+                                                nuevo.</p>
+                                            <p>Una vez dentro del campamento, además de curar sus heridas, no se
+                                                contarán los pasos que des y recuperarás algo de Spirits-Power, aunque
+                                                de forma muy lenta.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>CONNECT</strong>
+                                            <p>Opción para conectarse, mediante los conectores metálicos de la parte
+                                                superior del dispositivo, con otros D-Tector u otros digivice y V-Pets
+                                                de Digimon.</p>
+                                            <p>Con V.S. Battle podrás combatir contra otros dispositivos.</p>
+                                            <p>Con TRADE podrás enviar o recibir digimon de otros dispositivos
+                                                compatibles.</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </details>
+                        </section>
+
+                        <section>
+                            <h3>Menú 2</h3>
+                            <p>
+                                Para llegar al menú 2 es necesario encontrarse en el menú 1. Una vez dentro del menú 1
+                                tienes que pulsar el botón lateral.
+                                Este menú cuenta con 4 opciones por las que podrás navegar de la misma forma que en el
+                                menú 1. Las opciones disponibles son:
+                            </p>
+
+                            <details class="collapsible" id="menu2-details">
+                                <summary aria-controls="menu2-body" aria-expanded="false">Menú 2 — DIGI-DATABASE,
+                                    DIGI-DIGITS, GAME, DIGI-SEARCHER</summary>
+                                <div id="menu2-body" class="details-body">
+                                    <ol start="6">
+                                        <li>
+                                            <strong>DIGI-DATABASE</strong>
+                                            <p>Lista de todos los digimon conseguidos durante la aventura.</p>
+                                            <p>Existen varias formas de conseguir digimon: ganando combates contra
+                                                ellos, obteniéndolos en el juego SCANNING ACTION, obteniéndolos en el
+                                                DIGI-SEARCHER, obteniéndolos mediante un intercambio con la opción TRADE
+                                                de CONNECT o ingresando su código en la opción DIGI-DIGITS.</p>
+                                            <p>Los digimon se dividen, según su estado evolutivo, en ROOKIE, CHAMPION,
+                                                ULTIMATE y MEGA, de menos a más poderosos. Además, existe la categoría
+                                                BOSS donde se registran los BOSS derrotados de cada área, y la categoría
+                                                ANCIENT, donde se registran los Guerreros Legendarios disponibles,
+                                                obtenibles únicamente mediante códigos.</p>
+                                            <p>Todos los digimon disponibles en la DIGI-DATABASE, a excepción de los
+                                                ANCIENT, pueden ser utilizados en combate. Para poder usarlos, basta con
+                                                navegar hasta el digimon deseado, pulsar el botón B para acceder a su
+                                                información, volver a pulsar el botón B para acceder al sistema de
+                                                selección de D-Dock en el cual podremos navegar con el botón A, pulsar
+                                                el botón B para seleccionar en qué D-Dock colocarlo, y pulsarlo de nuevo
+                                                para confirmar la selección. Para ver más información sobre los
+                                                combates, ir a la sección de eventos del juego.</p>
+                                            <p>Ver la sección <a href="digidigits.html" target="_blank"
+                                                    rel="noopener">Digi-Digits</a> para ver una lista de todos los
+                                                digimon disponibles y sus códigos.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>DIGI-DIGITS</strong>
+                                            <p>El D-Tector salió al mismo tiempo que el juego de cartas <strong>D-Tector
+                                                    Card Game</strong>. Todas las cartas de este juego tenían un código
+                                                en la parte superior que, al introducirlo en la opción DIGI-DIGITS del
+                                                D-Tector, podías conseguir al digimon de la carta en el digivice.</p>
+                                            <p>Además, en el empaque del dispositivo se incluían 4 cartas de este juego.
+                                                Por desgracia, para conseguir más cartas había que importarlas desde
+                                                EEUU.</p>
+                                            <p><a href="https://digimon.fandom.com/wiki/Card:D-Tector_Card_Game"
+                                                    target="_blank" rel="noopener">Lista de cartas en Digimon Fandom</a>
+                                            </p>
+                                            <p>También puedes ir a la sección <a href="digidigits.html" target="_blank"
+                                                    rel="noopener">Digi-Digits</a> para ver una lista completa de todos
+                                                los códigos disponibles.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>GAME</strong>
+                                            <p>El D-Tector cuenta con dos juegos para obtener diferentes bonificaciones
+                                                durante la aventura: SCANNING ACTION y SPEED RUNNER.</p>
+                                            <p>SCANNING ACTION consiste en destruir una caja con el ataque que se indica
+                                                (ENERGY, ABILITY o CRUSH). Al destruir la caja se podrá obtener un
+                                                Digi-Objeto (ver en la sección de Digi-Objetos) o un digimon. Consultar
+                                                el apartado de combates en la sección de eventos del juego para obtener
+                                                más información sobre cómo realizar los distintos tipos de ataque.</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>DIGI-SEARCHER</strong>
+                                            <p>Al abrir esta opción, aparecerá en pantalla una televisión. Hay que dejar
+                                                pulsado el botón lateral al mismo tiempo que se pasa la mano sobre el
+                                                sensor de movimiento de forma constante.</p>
+                                            <p>De esta forma se puede activar uno de los eventos del juego (ver
+                                                siguiente sección) o conseguir un digimon.</p>
+                                            <p>Puede requerir varios intentos.</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </details>
+                        </section>
+                    </article>
+
+                    <article class="card prose" aria-labelledby="eventos-title">
+                        <h2 id="eventos-title" class="section-title">Eventos del juego</h2>
+
+                        <details class="collapsible" id="eventos-details">
+                            <summary aria-controls="eventos-body" aria-expanded="false">Eventos del juego — Combates,
+                                Tormentas de arena, Reencuentros</summary>
+                            <div id="eventos-body" class="details-body">
+                                <p>
+                                    El D-Tector cuenta con varios eventos que se activan tras caminar con el digivice (o
+                                    agitarlo con la mano) o al usar con éxito la opción DIGI-SEARCHER. Estos eventos son
+                                    los siguientes:
+                                </p>
+
+                                <section>
+                                    <h3>Combates</h3>
+                                    <p>Los combates contra otros digimon son el principal evento del dispositivo. Puedes
+                                        encontrar combates tras dar una cierta cantidad de pasos, al usar el
+                                        DIGI-SEARCHER con éxito o tras llegar al final de un área, en cuyo caso
+                                        combatirás contra el digimon BOSS del área. Ganas un combate cuando consigues
+                                        disminuir a 0 la vida (LIFE) del digimon contrincante. Pierdes si es la de tu
+                                        digimon la que llega a 0.</p>
+                                    <p>Antes de realizar combates es conveniente saber cómo crear un equipo de digimon y
+                                        conocer los tipos de ataque que pueden hacer.</p>
+
+                                    <h4>Creación de equipos</h4>
+                                    <p>Se llama equipo digimon a los digimon asignados a cada hueco del equipo o D-DOCK.
+                                        Hay un total de 4 D-DOCK que se pueden consultar en las pantallas de información
+                                        mencionadas al principio de la guía.</p>
+                                    <p>En la sección anterior, se explicaba cómo colocar un digimon en un D-Dock desde
+                                        la DIGI-DATABASE.</p>
+                                    <p>Estos digimon podrán ser invocados en combate usando la opción BATTLE CALL en el
+                                        menú de navegación de los combates.</p>
+
+                                    <h4>Tipos de ataque</h4>
+                                    <p>Existen tres tipos de ataque: ENERGY (EN.), ABILITY (AB.) y CRUSH (CR.).</p>
+                                    <p>ENERGY siempre gana a ABILITY, ABILITY siempre gana a CRUSH y CRUSH siempre gana
+                                        a ENERGY.</p>
+                                    <p>Si ambos digimon usan el mismo tipo de ataque, ganará el que tenga un mayor valor
+                                        en la estadística asociada a dicho ataque. Por ejemplo, si en un combate entre
+                                        Agumon y Gabumon ambos usan el ataque ENERGY, ganará Agumon ya que tiene un
+                                        valor de 25 en su estadística de ENERGY, mientras que Gabumon tiene 20. Estos
+                                        valores pueden consultarse en la DIGI-DATABASE.</p>
+                                    <p>Si ambos ataques son del mismo tipo y tienen el mismo valor, habrá un empate y
+                                        ningún digimon sufrirá daño.</p>
+
+                                    <p>Una vez conocido lo básico de los combates, se explicarán las diferentes opciones
+                                        del menú de navegación de los mismos.</p>
+
+                                    <details class="collapsible" id="combate-inicial-details">
+                                        <summary aria-controls="combate-inicial-body" aria-expanded="false">Menú de
+                                            combate inicial — resumen</summary>
+                                        <div id="combate-inicial-body" class="details-body">
+                                            <p>Este menú es el primero que aparece al comenzar un combate y consta de
+                                                cuatro opciones:</p>
+                                            <ol>
+                                                <li>
+                                                    <strong>BATTLE CALL</strong>
+                                                    <p>Desde aquí se invoca a un digimon de uno de los 4 D-DOCK. La
+                                                        invocación funciona con el sensor de movimiento, por lo que
+                                                        tienes que asegurarte de que estás en un lugar bien iluminado.
+                                                    </p>
+                                                    <p>Para invocar a un digimon hay dejar pulsado el botón lateral
+                                                        mientras se pasa la mano por el sensor de movimiento siguiendo
+                                                        un patrón. Sabrás que el sensor ha detectado correctamente el
+                                                        movimiento de tu mano cuando el led se apague al instante. A
+                                                        partir de ahora se representará con un 1 el pasar la mano sobre
+                                                        el sensor y con un 0 el no pasarla y dejar que el led se apague
+                                                        solo.</p>
+                                                    <p>Para invocar al digimon del D-DOCK 1 hay que seguir el patrón: 1
+                                                        1 1</p>
+                                                    <p>D-DOCK 2: 1 0 1</p>
+                                                    <p>D-DOCK 3: 1 1 0</p>
+                                                    <p>D-DOCK 4: 1 0 0</p>
+                                                    <p>Una vez realizado el patrón, se perderán puntos de invocación
+                                                        dependiendo del nivel que tenga el digimon en comparación con el
+                                                        nivel del jugador. Cuanto mayor sea el nivel del digimon en
+                                                        comparación con el del jugador, más puntos costará y más difícil
+                                                        será que obedezca al ordenarle atacar.</p>
+                                                    <p>Si no se realiza ningún patrón de invocación, gastarás de forma
+                                                        automática dos puntos de invocación para invocar un poderoso
+                                                        Numemon.</p>
+                                                    <p>Una vez invocado el digimon, aparecerá el menú de combate del
+                                                        digimon.</p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>SPIRIT ON</strong>
+                                                    <p>Mediante esta opción puedes combatir con un espíritu digital en
+                                                        vez de con uno de los digimon de los D-DOCK.</p>
+                                                    <p>Tanto invocar como combatir con un espíritu digital gasta
+                                                        Spirits-Power en función del nivel del jugador, por lo que es
+                                                        recomendable tener Spirits-Power de sobra.</p>
+                                                    <p>Una vez activado el espíritu digital, se accederá al menú de
+                                                        combate del espíritu digital.</p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>DIGI-DIGITS</strong>
+                                                    <p>Puedes invocar cualquier digimon utilizando su código
+                                                        directamente.</p>
+                                                    <p>Esta es la única forma de utilizar a los digimon ANCIENT.
+                                                        Requieren, además, de 99 Spirits-Power y de que tengas a los dos
+                                                        espíritus digitales de su elemento.</p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>ESCAPE</strong>
+                                                    <p>Con esta opción puedes huir del combate.</p>
+                                                    <p>Al escapar de un combate, nuestro personaje puede resultar
+                                                        herido, se puede eliminar de forma definitiva uno de nuestros
+                                                        digimon de los D-DOCK al azar o, en caso de combatir contra un
+                                                        BOSS, nos puede robar un espíritu digital. A efectos prácticos,
+                                                        es como perder el combate.</p>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </details>
+
+                                    <details class="collapsible" id="combate-digimon-details">
+                                        <summary aria-controls="combate-digimon-body" aria-expanded="false">Menú de
+                                            combate del digimon — resumen</summary>
+                                        <div id="combate-digimon-body" class="details-body">
+                                            <p>Este menú aparece después de invocar un digimon mediante BATTLE CALL y
+                                                consta de tres opciones:</p>
+                                            <ol>
+                                                <li>
+                                                    <strong>ATTACK</strong>
+                                                    <p>Con esta opción puedes seleccionar qué tipo de ataque quieres que
+                                                        haga el digimon mediante el sensor de movimiento.</p>
+                                                    <p>De igual forma que en la invocación, 1 representa pasar la mano
+                                                        sobre el sensor para que se apague el led, y 0 dejar que el led
+                                                        se apague solo.</p>
+                                                    <p>ENERGY: 1 1 1</p>
+                                                    <p>ABILITY: 1 1 0</p>
+                                                    <p>CRUSH: 1 0 1</p>
+                                                    <p>Si se hace otro patrón o ninguno, el ataque será aleatorio.</p>
+                                                    <p>Cabe la posibilidad de que si el jugador tiene un nivel muy bajo
+                                                        respecto al nivel del digimon, este no quiera atacar.</p>
+                                                    <p>Después de cada ataque ganarás un poco de Spirits-Power. Puedes
+                                                        consultar cuánto Spirits-Power tienes pulsando el botón C en
+                                                        cualquier menú de combate.</p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>DIGIVOLVE</strong>
+                                                    <p>Algunos digimon pueden digievolucionar en otros más poderosos.
+                                                        Por ejemplo, Agumon puede digievolucionar a Greymon, y este, a
+                                                        su vez, puede digievplucionar a Metalgreymon.</p>
+                                                    <p>Digievolucionar con éxito depende de la suerte y del nivel que
+                                                        tenga el jugador, aunque siempre gastará un punto de invocación.
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>DEPORT</strong>
+                                                    <p>Guarda al digimon invocado en su D-DOCK y regresas al menú de
+                                                        combate inicial.</p>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </details>
+
+                                    <details class="collapsible" id="combate-spirit-details">
+                                        <summary aria-controls="combate-spirit-body" aria-expanded="false">Menú de
+                                            combate del espíritu digital — resumen</summary>
+                                        <div id="combate-spirit-body" class="details-body">
+                                            <p>Una vez invocado un espíritu digital se accederá a este menú. Consta de
+                                                las siguientes opciones:</p>
+                                            <ol>
+                                                <li>
+                                                    <strong>ATTACK</strong>
+                                                    <p>A diferencia de los digimon normales, puedes elegir con qué
+                                                        atacará el espíritu digital sin usar el sensor de movimiento.
+                                                    </p>
+                                                    <p>Cada ataque gastará Spirits-Power. Si te quedas sin él, el
+                                                        espíritu se desactivará y volverás al menú de combate inicial.
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>DIGI-POWER</strong>
+                                                    <p>Los espíritus digitales pueden recibir ayuda de uno de los
+                                                        digimon de los D-DOCK.</p>
+                                                    <p>Elige el digimon que quieres que ayude al espíritu digital
+                                                        mediante el sensor y, si tienes suerte, el siguiente ataque del
+                                                        espíritu digital será más poderoso.</p>
+                                                    <p>Esta opción también consume puntos de invocación y no puede
+                                                        usarse dos veces seguidas.</p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>SPIRIT-OFF</strong>
+                                                    <p>Desactiva el espíritu digital y vuelves al menú de combate
+                                                        inicial.</p>
+                                                </li>
+
+                                                <li>
+                                                    <strong>ESCAPE</strong>
+                                                    <p>Escapa del combate.</p>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </details>
+
+                                    <p class="muted">Perder un combate o huir de él puede hacer que resultes herido,
+                                        pierdas un digimon de los D-DOCK o que te roben un espíritu digital.</p>
+                                </section>
+
+                                <section>
+                                    <h3>Tormentas de arena</h3>
+                                    <p>Después de dar una determinada cantidad de pasos o al utilizar con éxito el
+                                        DIGI-SEARCHER, cabe la posibilidad de que te topes con una tormenta de arena.
+                                    </p>
+                                    <p>Para huir de ellas, basta con pulsar de forma alterna y constantemente los
+                                        botones A y B. Sin embargo, si la tormenta de arena va primero a por otro niño
+                                        elegido diferente del que escogiste tú, no podrás escapar de la misma y os
+                                        llevará a todos a otro área conservando los pasos dados previamente.</p>
+                                    <p>Si la tormenta de arena se te lleva solo a ti, irás a parar a otro área pero sin
+                                        los demás niños elegidos acompañándote, por lo que no podrás usar sus espíritus
+                                        digitales ni sus digimon ANCIENT correspondientes hasta que te vuelvas a reunir
+                                        con ellos.</p>
+                                </section>
+
+                                <section>
+                                    <h3>Reencuentros</h3>
+                                    <p>Si una tormenta de arena te separó de los demás niños elegidos, puedes
+                                        encontrarte con ellos de nuevo únicamente dando pasos con el D-Tector (o
+                                        agitando).</p>
+                                    <p>Puedes consultar cuantos niños elegidos están contigo accediendo al menú STATUS.
+                                    </p>
+                                </section>
+                            </div>
+                        </details>
+                    </article>
+
+                    <article class="card prose" aria-labelledby="objetos-title">
+                        <h2 id="objetos-title" class="section-title">Digi-Objetos</h2>
+
+                        <details class="collapsible" id="objetos-details">
+                            <summary aria-controls="objetos-body" aria-expanded="false">Digi-Objetos — chips,
+                                suplementos y semillas</summary>
+                            <div id="objetos-body" class="details-body">
+                                <p>Al jugar a SCANNING-ACTION o al utilizar con éxito el DIGI-SEARCHER puedes conseguir
+                                    diversos digi-objetos.</p>
+
+                                <ul>
+                                    <li>
+                                        <strong>Digi-Chip de incremento de distancia</strong>
+                                        <p>Este chip aumenta los pasos que tienes que dar para llegar al final del área.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <strong>Digi-Chip de reducción de distancia</strong>
+                                        <p>Este chip disminuye los pasos que tienes que dar para llegar al final del
+                                            área.</p>
+                                    </li>
+
+                                    <li>
+                                        <strong>Suplemento de Spirits-Power</strong>
+                                        <p>Este suplemento aumenta tu Spirits-Power.</p>
+                                    </li>
+
+                                    <li>
+                                        <strong>Semilla de aumento de nivel</strong>
+                                        <p>Esta semilla aumenta en uno tu nivel de jugador.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </details>
+                    </article>
+                </div>
+
+                <!-- Aside / navegación rápida -->
+                <aside id="aside-nav" class="aside-card card" aria-label="Navegación rápida" aria-hidden="true">
+                    <div class="aside-controls" role="region" aria-label="Controles de la guía">
+                        <button id="toggle-all" class="toggle-btn" aria-pressed="false" aria-label="Expandir todo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span class="toggle-label">Expandir todo</span>
+                        </button>
+
+                        <!-- Close button for mobile overlay -->
+                        <button id="toc-close" class="toggle-btn" aria-label="Cerrar índice"
+                            style="display:none">Cerrar</button>
+                    </div>
+
+                    <h3 style="margin-top:0">En esta página</h3>
+                    <nav aria-label="Tabla de contenidos">
+                        <ul>
+                            <li><a href="#intro-title">Introducción</a></li>
+                            <li><a href="#aventura-title">¡Comienza la aventura!</a></li>
+                            <li><a href="#menus-title">Pantallas y menús</a></li>
+                            <li><a href="#menu1-details">Menú 1</a></li>
+                            <li><a href="#menu2-details">Menú 2</a></li>
+                            <li><a href="#eventos-title">Eventos del juego</a></li>
+                            <li><a href="#objetos-details">Digi-Objetos</a></li>
+                            <li>
+                                <a href="digidigits.html" target="_blank" rel="noopener"
+                                    aria-label="Digi-Digits (se abre en una nueva pestaña)">
+                                    Digi-Digits
+                                    <svg class="icon-external" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        style="margin-left:6px; vertical-align:middle;">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html" rel="noopener" aria-label="Volver al inicio">
+                                    <!-- Icono flecha atrás -->
+                                    <svg class="icon-back" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 12H6" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12 19l-7-7 7-7" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    Volver al inicio
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </main>
+
+        <footer>
+            <div class="muted" style="text-align:center; margin-top:14px;">
+                <a href="https://rubendmr96.github.io/rubensioshub/" rel="noopener noreferrer">Rubensio's Hub</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Backdrop for mobile aside overlay -->
+    <div id="aside-backdrop" class="aside-backdrop" aria-hidden="true"></div>
+
+    <a href="index.html" class="back-button" aria-label="Volver al inicio">
+        <svg class="icon-back" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M12 19l-7-7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+        <span class="back-label">Inicio</span>
+    </a>
+
+
+    <script>
+        (function () {
+            // Mostrar estilos de foco solo cuando se navega con teclado
+            function handleFirstTab(e) {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('show-focus');
+                    window.removeEventListener('keydown', handleFirstTab);
+                }
+            }
+            window.addEventListener('keydown', handleFirstTab);
+
+            // Ensure main-content focusable for skip link
+            const main = document.getElementById('main-content');
+            if (main) main.setAttribute('tabindex', '-1');
+
+            // Cache nodes
+            const details = Array.from(document.querySelectorAll('main details.collapsible'));
+            const toggleAllBtn = document.getElementById('toggle-all');
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocClose = document.getElementById('toc-close');
+            const aside = document.getElementById('aside-nav');
+            const asideBackdrop = document.getElementById('aside-backdrop');
+
+            // Helper: set aria-expanded and open state for all details
+            function setDetailsOpen(open) {
+                details.forEach(d => {
+                    d.open = open;
+                    const s = d.querySelector('summary');
+                    if (s) s.setAttribute('aria-expanded', String(!!d.open));
+                });
+            }
+
+            // Toggle all button behavior
+            if (toggleAllBtn) {
+                toggleAllBtn.addEventListener('click', () => {
+                    const active = toggleAllBtn.classList.toggle('active');
+                    setDetailsOpen(active);
+                    toggleAllBtn.setAttribute('aria-pressed', String(active));
+                    toggleAllBtn.querySelector('.toggle-label').textContent = active ? 'Colapsar todo' : 'Expandir todo';
+                });
+            }
+
+            // Initialize summaries (aria-expanded + keyboard)
+            details.forEach(d => {
+                const s = d.querySelector('summary');
+                if (!s) return;
+                s.setAttribute('aria-expanded', String(!!d.open));
+                s.addEventListener('click', () => {
+                    setTimeout(() => s.setAttribute('aria-expanded', String(!!d.open)), 10);
+                });
+                s.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        s.click();
+                    }
+                });
+            });
+
+            // Open/close aside overlay (mobile)
+            function openAsideOverlay() {
+                aside.classList.add('open');
+                aside.setAttribute('aria-hidden', 'false');
+                tocToggle.setAttribute('aria-expanded', 'true');
+                tocClose.style.display = 'inline-flex';
+                asideBackdrop.classList.add('show');
+
+                // hide floating button to avoid overlap
+                tocToggle.style.display = 'none';
+
+                // focus first interactive element inside aside
+                const firstFocusable = aside.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+                (firstFocusable || tocClose).focus();
+            }
+
+            function closeAsideOverlay() {
+                aside.classList.remove('open');
+                aside.setAttribute('aria-hidden', 'true');
+                tocToggle.setAttribute('aria-expanded', 'false');
+                tocClose.style.display = 'none';
+                asideBackdrop.classList.remove('show');
+
+                // restore floating button
+                tocToggle.style.display = 'inline-flex';
+
+                // return focus to toggle
+                tocToggle.focus();
+            }
+
+            // Toggle handlers
+            if (tocToggle) {
+                tocToggle.addEventListener('click', () => {
+                    aside.classList.contains('open') ? closeAsideOverlay() : openAsideOverlay();
+                });
+            }
+            if (tocClose) tocClose.addEventListener('click', closeAsideOverlay);
+            if (asideBackdrop) asideBackdrop.addEventListener('click', closeAsideOverlay);
+
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && aside.classList.contains('open')) closeAsideOverlay();
+            });
+
+            // Close overlay when clicking a TOC anchor on mobile and scroll to target
+            const tocLinks = Array.from(document.querySelectorAll('aside nav a[href^="#"]'));
+            tocLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (!href || !href.startsWith('#')) return;
+                    const id = href.slice(1);
+                    const target = document.getElementById(id);
+
+                    // If mobile overlay is open (or on small screens), close it and scroll to target
+                    if (window.matchMedia('(max-width:879px)').matches && aside.classList.contains('open')) {
+                        // allow overlay to close visually before scrolling
+                        closeAsideOverlay();
+                        if (target) {
+                            setTimeout(() => {
+                                // temporary tabindex to allow focus
+                                target.setAttribute('tabindex', '-1');
+                                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                setTimeout(() => {
+                                    target.focus();
+                                    target.removeAttribute('tabindex');
+                                }, 350);
+                            }, 120);
+                        }
+                    }
+                });
+            });
+
+            // TOC highlight using IntersectionObserver only on wide screens
+            const tocAllLinks = Array.from(document.querySelectorAll('aside nav a'));
+            const headings = tocAllLinks
+                .map(a => {
+                    const id = a.getAttribute('href')?.replace('#', '');
+                    if (!id) return null;
+                    const el = document.getElementById(id);
+                    return el ? { link: a, el } : null;
+                })
+                .filter(Boolean);
+
+            if ('IntersectionObserver' in window && headings.length && window.matchMedia('(min-width:880px)').matches) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const match = headings.find(h => h.el === entry.target);
+                        if (!match) return;
+                        if (entry.isIntersecting) {
+                            tocAllLinks.forEach(l => l.removeAttribute('aria-current'));
+                            match.link.setAttribute('aria-current', 'true');
+                        }
+                    });
+                }, { root: null, rootMargin: '0px 0px -60% 0px', threshold: 0.01 });
+
+                headings.forEach(h => observer.observe(h.el));
+            }
+
+            // Optional: try to remove white background from logo if same-origin
+            (function removeWhiteBackground() {
+                const img = document.getElementById('header-logo');
+                if (!img) return;
+                function process() {
+                    try {
+                        const w = img.naturalWidth, h = img.naturalHeight;
+                        if (!w || !h) return;
+                        const canvas = document.createElement('canvas');
+                        canvas.width = w; canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        const imgData = ctx.getImageData(0, 0, w, h);
+                        const d = imgData.data;
+                        let changed = false;
+                        const tolerance = 250;
+                        for (let i = 0; i < d.length; i += 4) {
+                            const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+                            if (a > 0 && r >= tolerance && g >= tolerance && b >= tolerance) {
+                                d[i + 3] = 0;
+                                changed = true;
+                            }
+                        }
+                        if (changed) {
+                            ctx.putImageData(imgData, 0, 0);
+                            img.src = canvas.toDataURL('image/png');
+                            img.style.background = 'transparent';
+                        }
+                    } catch (err) {
+                        // CORS o limitación: ignorar
+                    }
+                }
+                if (img.complete) process(); else img.onload = process;
+            })();
+        })();
+    </script>
+</body>
+
+</html>
