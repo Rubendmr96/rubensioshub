@@ -1,5 +1,5 @@
 [
-    {"nombre": "Agumonsio", "codigo": "VSJK1", "clase":"rookie", "urlImagen": "/rubensioshub/projects/la-frontera-digimon/assets/images/img/agumon.jpg"},
+    {"nombre": "Agumon", "codigo": "VSJK1", "clase":"rookie", "urlImagen": "/projects/la-frontera-digimon/assets/images/img/agumon.jpg"},
     {"nombre": "Gabumon", "codigo": "20LJY", "clase":"rookie", "urlImagen": "/rubensioshub/projects/la-frontera-digimon/assets/images/img/gabumon.jpg"},
     {"nombre": "Veemon", "codigo": "4143F", "clase":"rookie", "urlImagen": "/rubensioshub/projects/la-frontera-digimon/assets/images/img/veemon.jpg"},
     {"nombre": "Wormmon", "codigo": "O71PD", "clase":"rookie", "urlImagen": "/rubensioshub/projects/la-frontera-digimon/assets/images/img/wormmon.jpg"},
