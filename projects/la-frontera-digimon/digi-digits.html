@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Digi-Digits — La Frontera Digimon</title>
+    <meta name="description" content="Listado de Digi-Digits: código, nombre, clase e imagen." />
+    <style>
+        :root {
+            --bg: #eef6ff;
+            --card: #f7fbff;
+            --muted: #4b6b8a;
+            --text: #0f172a;
+            --accent: #2563eb;
+            --accent-2: #1e4fd8;
+            --radius: 12px;
+            --shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+            --max-width: 1100px;
+            --card-height: 320px;
+            --grid-gap: 12px;
+            --initial-rows: 3;
+            --card-width: 320px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: linear-gradient(180deg, var(--bg), #fff);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: var(--max-width)
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            justify-content: space-between
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .header-icon {
+            height: 56px;
+            width: auto;
+            border-radius: 8px
+        }
+
+        .brand h1 {
+            font-size: 1.25rem;
+            margin: 0
+        }
+
+        .brand p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem
+        }
+
+        /* Botón Volver a inicio: fijo arriba a la derecha, fondo transparente */
+        .back-button {
+            position: fixed;
+            right: 12px;
+            top: 12px;
+            z-index: 10002;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .back-button:focus {
+            outline: 3px solid rgba(37, 99, 235, 0.18);
+            outline-offset: 3px;
+            border-radius: 12px
+        }
+
+        .icon-back {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            fill: currentColor;
+            display: inline-block
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 12px 0 18px 0;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .search {
+            flex: 1 1 220px;
+            min-width: 160px;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .search input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(2, 6, 23, 0.06);
+            background: var(--card);
+            outline: none;
+            font-size: 0.95rem
+        }
+
+        .select {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(2, 6, 23, 0.06);
+            background: var(--card);
+            font-size: 0.95rem
+        }
+
+        #status {
+            color: var(--muted);
+            font-size: 0.95rem
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--grid-gap);
+            margin-top: 6px;
+            min-height: calc(var(--card-height) * var(--initial-rows) + (var(--initial-rows) - 1) * var(--grid-gap));
+            align-items: start;
+        }
+
+        .card {
+            height: var(--card-height);
+            min-height: var(--card-height);
+            background: #ffffff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .18s ease, box-shadow .18s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(2, 6, 23, 0.12)
+        }
+
+        .thumbnail {
+            height: calc(var(--card-height) * 0.55);
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            transition: transform .25s ease;
+            background: #ffffff
+        }
+
+        .card:hover .thumbnail img {
+            transform: scale(1.03)
+        }
+
+        .img-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 36px;
+            color: rgba(15, 23, 42, 0.85);
+            background: #ffffff
+        }
+
+        .info {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1 1 auto;
+            overflow: hidden
+        }
+
+        .code {
+            color: var(--accent-2);
+            font-weight: 700;
+            font-family: monospace;
+            font-size: 0.95rem;
+            word-break: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .info h3 {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .class {
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-transform: capitalize;
+            margin-top: auto
+        }
+
+        .placeholder {
+            padding: 18px;
+            color: var(--muted);
+            text-align: center;
+            grid-column: 1/-1
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 8px 12px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem
+        }
+
+        @media (max-width:640px) {
+            body {
+                padding: 20px 12px
+            }
+
+            .header-icon {
+                height: 48px
+            }
+
+            :root {
+                --card-height: 300px
+            }
+
+            .back-button {
+                right: 8px;
+                top: 8px;
+                padding: 9px 10px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="header-left">
+                <a href="index.html" aria-label="Ir a La Frontera Digimon — inicio">
+                    <img class="header-icon" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo"
+                        loading="lazy" width="56" height="56">
+                </a>
+                <div class="brand">
+                    <h1>Digi-Digits</h1>
+                    <p>Listado de códigos y digimons</p>
+                </div>
+            </div>
+            <div aria-hidden="true" style="width:1px;height:1px"></div>
+        </header>
+
+        <!-- Botón fijo arriba a la derecha -->
+        <a href="index.html" class="back-button" aria-label="Volver a inicio">
+            <svg class="icon-back" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                focusable="false">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
+            Volver a inicio
+        </a>
+
+        <main>
+            <h2>Encuentra tu Digimon favorito</h2>
+
+            <div class="controls" role="region" aria-label="Controles de búsqueda y filtro">
+                <div class="search">
+                    <input id="search" type="search" placeholder="Buscar por nombre o código"
+                        aria-label="Buscar por nombre o código">
+                </div>
+
+                <select id="classFilter" class="select" aria-label="Filtrar por clase">
+                    <option value="">Todas las clases</option>
+                </select>
+
+                <div id="status" aria-live="polite" aria-atomic="true" aria-busy="false"></div>
+            </div>
+
+            <section id="grid" class="grid" aria-live="polite" aria-busy="true">
+                <div class="placeholder">Cargando...</div>
+            </section>
+        </main>
+
+        <footer>
+            <div><a href="index.html" class="button" rel="noopener">Volver</a></div>
+        </footer>
+    </div>
+
+    <script>
+        const DATA_URL = 'assets/data/digidigits.json';
+        const grid = document.getElementById('grid');
+        const status = document.getElementById('status');
+        const searchInput = document.getElementById('search');
+        const classSelect = document.getElementById('classFilter');
+
+        let digiData = [], initialColumnWidth = null, currentList = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            searchInput.addEventListener('input', debounce(applyFilters, 120));
+            classSelect.addEventListener('change', applyFilters);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { searchInput.value = ''; applyFilters(); } });
+        });
+
+        async function loadData() {
+            setStatus('Cargando...', true);
+            try {
+                const res = await fetch(DATA_URL);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                digiData = Array.isArray(data) ? data : [];
+                populateClassFilter(digiData);
+                render(digiData);
+                updateInitialColumnWidth();
+                window.addEventListener('resize', debounce(() => { updateInitialColumnWidth(); render(currentList); }, 150));
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<div class="placeholder">Error al cargar los datos.</div>';
+                setStatus('Error al cargar', false);
+            } finally {
+                setStatus('', false);
+            }
+        }
+
+        const setStatus = (text, busy) => {
+            status.textContent = text;
+            status.setAttribute('aria-busy', busy ? 'true' : 'false');
+        };
+
+        function resolveImage(url) {
+            if (!url) return '';
+            if (/^(https?:)?\/\//.test(url) || url.startsWith('/')) return url;
+            try { return new URL(url, document.baseURI).href; } catch { return url; }
+        }
+
+        function createCard(item) {
+            const article = document.createElement('article');
+            article.className = 'card';
+
+            const thumb = document.createElement('div');
+            thumb.className = 'thumbnail';
+
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.alt = item.nombre || '';
+            img.src = resolveImage(item.urlImagen || '');
+            img.addEventListener('error', () => {
+                if (img.parentElement) {
+                    img.remove();
+                    const fallback = document.createElement('div');
+                    fallback.className = 'img-fallback';
+                    fallback.textContent = item.nombre ? item.nombre.charAt(0).toUpperCase() : '?';
+                    thumb.appendChild(fallback);
+                }
+            });
+
+            thumb.appendChild(img);
+            article.appendChild(thumb);
+
+            const info = document.createElement('div');
+            info.className = 'info';
+
+            const code = document.createElement('div');
+            code.className = 'code';
+            code.textContent = item.codigo || '';
+            code.title = item.codigo || '';
+            info.appendChild(code);
+
+            const h3 = document.createElement('h3');
+            h3.textContent = item.nombre || '';
+            info.appendChild(h3);
+
+            const cls = document.createElement('div');
+            cls.className = 'class';
+            cls.textContent = item.clase || '';
+            info.appendChild(cls);
+
+            article.appendChild(info);
+            return article;
+        }
+
+        function render(list) {
+            currentList = Array.isArray(list) ? list : [];
+            grid.innerHTML = '';
+            if (!currentList.length) {
+                grid.innerHTML = '<div class="placeholder">No se encontraron digimons.</div>';
+                grid.style.gridTemplateColumns = '';
+                grid.style.justifyContent = '';
+                return;
+            }
+            const frag = document.createDocumentFragment();
+            currentList.forEach(item => frag.appendChild(createCard(item)));
+            grid.appendChild(frag);
+
+            if (currentList.length === 1 && initialColumnWidth) {
+                grid.style.gridTemplateColumns = `repeat(1, ${initialColumnWidth}px)`;
+                grid.style.justifyContent = 'center';
+            } else {
+                grid.style.gridTemplateColumns = '';
+                grid.style.justifyContent = '';
+            }
+        }
+
+        function populateClassFilter(data) {
+            // Orden deseado por el usuario
+            const preferredOrder = ['rookie', 'champion', 'ultimate', 'mega', 'boss', 'ancient', 'spirits', 'others'];
+            const classesSet = new Set(data.map(d => (d.clase || '').toLowerCase()).filter(Boolean));
+            const ordered = [];
+            preferredOrder.forEach(c => { if (classesSet.has(c)) { ordered.push(c); classesSet.delete(c); } });
+            // Añadir cualquier clase restante (si existiera) al final, ordenadas alfabéticamente
+            const rest = Array.from(classesSet).sort();
+            const final = ordered.concat(rest);
+            classSelect.innerHTML = '<option value="">Todas las clases</option>' + final.map(c => `<option value="${escapeHtmlAttr(c)}">${capitalize(c)}</option>`).join('');
+        }
+
+        function applyFilters() {
+            const q = searchInput.value.trim().toLowerCase();
+            const cls = classSelect.value;
+            const filtered = digiData.filter(d => {
+                const matchesClass = !cls || (d.clase && d.clase.toLowerCase() === cls);
+                const matchesQuery = !q || (d.nombre && d.nombre.toLowerCase().includes(q)) || (d.codigo && d.codigo.toLowerCase().includes(q));
+                return matchesClass && matchesQuery;
+            });
+            render(filtered);
+        }
+
+        function updateInitialColumnWidth() {
+            const cards = grid.querySelectorAll('.card');
+            if (cards.length > 1) {
+                const rect = cards[0].getBoundingClientRect();
+                if (rect && rect.width > 0) {
+                    initialColumnWidth = Math.round(rect.width);
+                    document.documentElement.style.setProperty('--card-width', `${initialColumnWidth}px`);
+                }
+            } else {
+                const cssWidth = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-width'), 10);
+                if (!initialColumnWidth && cssWidth) initialColumnWidth = cssWidth;
+            }
+        }
+
+        function debounce(fn, wait) {
+            let t;
+            return (...args) => { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), wait); };
+        }
+        function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+        function escapeHtmlAttr(str) { return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    </script>
+</body>
+
+</html>
