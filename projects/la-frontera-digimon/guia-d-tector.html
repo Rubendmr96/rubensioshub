@@ -140,17 +140,23 @@
         }
 
         .brand h1 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             margin: 0;
             color: var(--neon-blue);
             font-family: 'Press Start 2P', monospace;
-            letter-spacing: 0.6px
+            line-height: 1.2;
         }
 
-        .brand p.lead {
-            margin: 0;
-            color: var(--muted);
-            font-size: 0.85rem
+        /* Subtítulo más visible (cambio solicitado) */
+        .brand p {
+            margin: 8px 0 0 0;
+            color: #ccffcc;
+            font-size: 0.95rem;
+            /* aumentado para mayor visibilidad */
+            font-weight: 700;
+            /* un poco más de peso para destacar */
+            line-height: 1.2;
+            text-shadow: 1px 1px 0px #000000;
         }
 
         /* Botón índice: por defecto oculto; en móvil se muestra como botón flotante abajo-derecha */
@@ -535,29 +541,15 @@
         <header>
             <div class="header-left">
                 <a href="index.html" aria-label="Ir a La Frontera Digimon — inicio">
-                    <img id="header-logo" class="header-icon" src="assets/images/icons/d-tector_transparent.png"
-                        alt="Logotipo D-Scan" loading="lazy" width="72" height="72"
-                        onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
+                    <img class="header-icon" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo"
+                        loading="lazy" width="56" height="56">
                 </a>
-
-                <svg id="logo-fallback" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                    role="img" style="display:none">
-                    <rect width="64" height="64" rx="10" fill="#001a2a" />
-                    <g fill="var(--neon-blue)" font-family="monospace" font-weight="700" font-size="26"
-                        text-anchor="middle">
-                        <text x="50%" y="50%" dominant-baseline="middle">D</text>
-                    </g>
-                </svg>
-
                 <div class="brand">
-                    <div>
-                        <h1>La Frontera Digimon</h1>
-                        <p class="lead">Guía D-Tector</p>
-                    </div>
+                    <h1>Guía D-Tector</h1>
+                    <p>Aprende a jugar con el D-Tector</p>
                 </div>
             </div>
-
-            <!-- Nota: el botón "Índice" se muestra como botón flotante en móvil (fuera del header) -->
+            <div aria-hidden="true" style="width:1px;height:1px"></div>
         </header>
 
         <main id="main-content" tabindex="-1">
