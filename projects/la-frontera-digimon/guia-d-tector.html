@@ -9,39 +9,43 @@
         content="Guía D-Tector — La Frontera Digimon. Guía completa y accesible sobre el D-Tector." />
 
     <style>
+        /* --- Tema visual adaptado al estilo cyber/neón del index.html --- */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
         :root {
-            --bg: #eef6ff;
-            --card: #f7fbff;
-            --muted: #4b6b8a;
-            --text: #0f172a;
-            --accent: #2563eb;
-            --accent-2: #1e4fd8;
-            --glass: rgba(37, 99, 235, 0.06);
+            --bg-1: #00111a;
+            --bg-2: #001f33;
+            --neon-green: #00ff88;
+            --neon-blue: #00a3ff;
+            --muted: #9fc6ff;
+            --card-bg: rgba(0, 0, 0, 0.55);
+            --glass: rgba(0, 0, 0, 0.45);
+            --accent: rgba(0, 163, 255, 0.95);
+            --accent-2: rgba(0, 255, 136, 0.95);
             --radius: 12px;
-            --shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+            --shadow-cyber: 0 10px 30px rgba(0, 163, 255, 0.08), inset 0 0 20px rgba(0, 255, 136, 0.03);
             --max-width: 1100px;
-            --base-size: 18px;
+            --base-size: 16px;
             --line-height: 1.6;
             --prose-max: 70ch;
             --touch-min: 44px;
         }
 
-        /* Reset y base */
         *,
         *::before,
         *::after {
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         html {
             font-size: var(--base-size);
             -webkit-text-size-adjust: 100%;
-            scroll-behavior: smooth;
+            scroll-behavior: smooth
         }
 
-        @media (prefers-reduced-motion: reduce) {
+        @media (prefers-reduced-motion:reduce) {
             html {
-                scroll-behavior: auto;
+                scroll-behavior: auto
             }
         }
 
@@ -49,19 +53,36 @@
             margin: 0;
             min-height: 100%;
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(180deg, var(--bg), #ffffff);
-            color: var(--text);
+            color: #e6f7ff;
+            background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             line-height: var(--line-height);
             display: flex;
             justify-content: center;
             padding: 32px 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* sutil fondo "matriz" */
+        .digital-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image:
+                linear-gradient(90deg, rgba(0, 163, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
+            background-size: 20px 20px, 20px 20px;
+            opacity: 0.9;
+            pointer-events: none;
+            transform: translateZ(0);
+            filter: blur(0.6px);
         }
 
         .wrap {
             width: 100%;
-            max-width: var(--max-width);
+            max-width: var(--max-width)
         }
 
         /* Skip link */
@@ -71,7 +92,7 @@
             top: auto;
             width: 1px;
             height: 1px;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .skip-link:focus {
@@ -80,10 +101,10 @@
             width: auto;
             height: auto;
             padding: 8px 12px;
-            background: var(--accent);
-            color: #fff;
+            background: var(--neon-blue);
+            color: #001;
             border-radius: 8px;
-            z-index: 9999;
+            z-index: 9999
         }
 
         header {
@@ -91,52 +112,63 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 18px;
-            background: transparent;
             justify-content: space-between;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 163, 255, 0.08);
+            box-shadow: var(--shadow-cyber);
+            backdrop-filter: blur(6px);
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 12px
         }
 
         .header-icon {
-            background: transparent;
             height: clamp(40px, 6vh, 72px);
             width: auto;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 10px;
             flex: 0 0 auto;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55));
+            border: 1px solid rgba(0, 255, 136, 0.08);
+            padding: 6px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(0, 163, 255, 0.03);
         }
 
         .brand h1 {
             font-size: 1.25rem;
             margin: 0;
+            color: var(--neon-blue);
+            font-family: 'Press Start 2P', monospace;
+            letter-spacing: 0.6px
         }
 
         .brand p.lead {
             margin: 0;
             color: var(--muted);
-            font-size: 0.95rem;
+            font-size: 0.85rem
         }
 
-        /* Mobile TOC toggle button (fixed on small screens) */
         .toc-toggle {
             display: none;
             background: transparent;
-            border: 1px solid rgba(37, 99, 235, 0.12);
-            color: var(--accent);
+            border: 1px solid rgba(0, 163, 255, 0.12);
+            color: var(--neon-blue);
             padding: 8px 10px;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
+            backdrop-filter: blur(4px);
         }
 
         .toc-toggle:focus {
-            outline: 3px solid rgba(37, 99, 235, 0.18);
+            outline: 3px solid rgba(0, 163, 255, 0.12);
             outline-offset: 3px;
-            border-radius: 8px;
+            border-radius: 8px
         }
 
         @media (max-width:880px) {
@@ -144,30 +176,25 @@
                 display: inline-flex;
                 align-items: center;
                 gap: 8px;
-            }
-
-            /* fixed floating button */
-            .toc-toggle {
                 position: fixed;
                 right: 12px;
                 bottom: 12px;
                 z-index: 10002;
                 padding: 12px 14px;
                 border-radius: 12px;
-                background: #fff;
-                border: 1px solid rgba(37, 99, 235, 0.12);
-                box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+                background: #001a2a;
+                border: 1px solid rgba(0, 163, 255, 0.12);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6)
             }
         }
 
         /* Cards y tipografía */
         .card {
-            background: linear-gradient(180deg, var(--glass), transparent);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.35));
             border-radius: var(--radius);
             padding: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(37, 99, 235, 0.06);
-            background-color: var(--card);
+            box-shadow: var(--shadow-cyber);
+            border: 1px solid rgba(0, 163, 255, 0.06);
             margin-bottom: 14px;
         }
 
@@ -176,70 +203,77 @@
         h3,
         h4 {
             margin: 0 0 10px 0;
-            color: var(--text);
-            line-height: 1.15;
+            color: var(--neon-blue);
+            line-height: 1.15
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.5rem
         }
 
         h2.section-title {
             font-size: 1.125rem;
-            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             padding-bottom: 8px;
             margin-bottom: 12px;
+            color: var(--neon-green)
         }
 
         h3 {
             font-size: 1rem;
             margin-top: 8px;
+            color: var(--neon-blue)
         }
 
         p {
             margin: 0 0 12px 0;
+            color: #dff7ff
         }
 
         .lead-paragraph {
             color: var(--muted);
-            margin-bottom: 12px;
+            margin-bottom: 12px
+        }
+
+        .muted {
+            color: #9fbff6
         }
 
         ol,
         ul {
-            margin: 0 0 12px 1.1rem;
+            margin: 0 0 12px 1.1rem
         }
 
         li {
-            margin-bottom: 8px;
+            margin-bottom: 8px
         }
 
         a {
-            color: var(--accent);
-            text-decoration: none;
+            color: var(--neon-blue);
+            text-decoration: none
         }
 
         a:hover,
         a:focus {
-            text-decoration: underline;
+            text-decoration: underline
         }
 
         /* Grid principal */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
+            gap: 12px
         }
 
         @media (min-width:880px) {
             .content-grid {
                 grid-template-columns: 1fr 320px;
-                align-items: start;
+                align-items: start
             }
 
             .aside-card {
                 position: sticky;
-                top: 24px;
+                top: 24px
             }
         }
 
@@ -247,31 +281,31 @@
         nav ul {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 0
         }
 
         nav li {
-            margin-bottom: 8px;
+            margin-bottom: 8px
         }
 
         nav a {
             display: inline-block;
             padding: 8px 10px;
             border-radius: 8px;
-            color: var(--accent);
+            color: var(--neon-green);
             min-height: var(--touch-min);
-            line-height: 1.2;
+            line-height: 1.2
         }
 
         nav a:hover,
         nav a:focus {
-            background: rgba(37, 99, 235, 0.06);
-            outline: none;
+            background: rgba(0, 163, 255, 0.04);
+            outline: none
         }
 
         nav a[aria-current="true"] {
             font-weight: 700;
-            background: rgba(37, 99, 235, 0.08);
+            background: rgba(0, 255, 136, 0.06)
         }
 
         /* Summary / details styling */
@@ -279,6 +313,7 @@
             margin-bottom: 12px;
             border-radius: 10px;
             overflow: hidden;
+            border: 1px solid rgba(0, 163, 255, 0.04)
         }
 
         details summary {
@@ -287,15 +322,15 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(37, 99, 235, 0.03);
-            border-bottom: 1px solid rgba(15, 23, 42, 0.03);
-            list-style: none;
-            font-weight: 600;
+            background: linear-gradient(90deg, rgba(0, 163, 255, 0.03), rgba(0, 255, 136, 0.02));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            font-weight: 700;
             border-radius: 8px;
+            color: var(--neon-blue)
         }
 
         details summary::-webkit-details-marker {
-            display: none;
+            display: none
         }
 
         details summary::after {
@@ -303,24 +338,25 @@
             margin-left: auto;
             transform: rotate(0deg);
             transition: transform .18s ease;
-            color: var(--accent);
+            color: var(--neon-green)
         }
 
         details[open] summary::after {
-            transform: rotate(90deg);
+            transform: rotate(90deg)
         }
 
         details .details-body {
             padding: 12px;
             background: transparent;
+            color: #dff7ff
         }
 
-        /* Aside controls (compact toggle) */
+        /* Aside controls */
         .aside-controls {
             display: flex;
             gap: 8px;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 12px
         }
 
         .toggle-btn {
@@ -328,47 +364,40 @@
             align-items: center;
             gap: 8px;
             background: transparent;
-            border: 1px solid rgba(37, 99, 235, 0.12);
-            color: var(--accent);
+            border: 1px solid rgba(0, 163, 255, 0.12);
+            color: var(--neon-blue);
             padding: 6px 10px;
             border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .toggle-btn svg {
-            width: 14px;
-            height: 14px;
-            display: block;
+            font-weight: 700;
+            cursor: pointer
         }
 
         .toggle-btn.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
+            background: var(--neon-blue);
+            color: #001;
+            border-color: var(--neon-blue);
+            box-shadow: 0 6px 18px rgba(0, 163, 255, 0.12)
         }
 
         .toggle-btn:focus {
-            outline: 3px solid rgba(37, 99, 235, 0.18);
+            outline: 3px solid rgba(0, 163, 255, 0.12);
             outline-offset: 3px;
-            border-radius: 8px;
+            border-radius: 8px
         }
 
-        /* Back icon in TOC link */
         .icon-back {
             width: 16px;
             height: 16px;
             vertical-align: middle;
             margin-right: 8px;
             fill: currentColor;
-            display: inline-block;
+            display: inline-block
         }
 
         /* Mobile overlay behavior for aside */
         @media (max-width:879px) {
             .aside-card {
-                display: none;
+                display: none
             }
 
             .aside-card.open {
@@ -378,51 +407,49 @@
                 z-index: 10001;
                 overflow: auto;
                 padding: 16px;
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(0, 0, 0, 0.92);
                 backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
                 border-radius: 12px;
-                box-shadow: 0 24px 60px rgba(2, 6, 23, 0.18);
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6)
             }
 
             .aside-backdrop {
                 position: fixed;
                 inset: 0;
                 z-index: 10000;
-                background: rgba(0, 0, 0, 0.36);
+                background: rgba(0, 0, 0, 0.6);
                 opacity: 0;
                 transition: opacity .18s ease;
-                pointer-events: none;
+                pointer-events: none
             }
 
             .aside-backdrop.show {
                 opacity: 1;
-                pointer-events: auto;
+                pointer-events: auto
             }
 
             nav a {
                 display: block;
-                padding: 12px 14px;
+                padding: 12px 14px
             }
 
             .card {
                 box-shadow: none;
-                border: 1px solid rgba(37, 99, 235, 0.04);
+                border: 1px solid rgba(0, 163, 255, 0.04)
             }
         }
 
-        /* Prose width */
         .prose {
-            max-width: var(--prose-max);
+            max-width: var(--prose-max)
         }
 
         @media (max-width:640px) {
             body {
-                padding: 20px 12px;
+                padding: 20px 12px
             }
 
             .card {
-                padding: 16px;
+                padding: 16px
             }
         }
 
@@ -432,17 +459,17 @@
             left: 12px;
             bottom: 12px;
             z-index: 10002;
-            background: #fff;
-            color: var(--accent);
-            border: 1px solid rgba(37, 99, 235, 0.12);
-            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+            background: #001a2a;
+            color: var(--neon-blue);
+            border: 1px solid rgba(0, 163, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             padding: 10px 12px;
             border-radius: 12px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             align-items: center;
             gap: 6px;
-            font-size: 0.95rem;
+            font-size: 0.95rem
         }
 
         .back-button .icon-back {
@@ -450,18 +477,30 @@
             height: 16px;
             margin-right: 6px;
             vertical-align: middle;
-            fill: currentColor;
+            fill: currentColor
         }
 
-        @media (max-width: 879px) {
+        @media (max-width:879px) {
             .back-button {
-                display: inline-flex;
+                display: inline-flex
             }
+        }
+
+        /* Small tweaks for readability */
+        code,
+        pre {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace
+        }
+
+        strong {
+            color: var(--neon-green)
         }
     </style>
 </head>
 
 <body>
+    <div class="digital-bg" aria-hidden="true"></div>
+
     <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
     <div class="wrap" id="page">
@@ -475,8 +514,9 @@
 
                 <svg id="logo-fallback" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                     role="img" style="display:none">
-                    <rect width="64" height="64" rx="10" fill="#eaf3ff" />
-                    <g fill="#2563eb" font-family="monospace" font-weight="700" font-size="26" text-anchor="middle">
+                    <rect width="64" height="64" rx="10" fill="#001a2a" />
+                    <g fill="var(--neon-blue)" font-family="monospace" font-weight="700" font-size="26"
+                        text-anchor="middle">
                         <text x="50%" y="50%" dominant-baseline="middle">D</text>
                     </g>
                 </svg>
@@ -705,9 +745,7 @@
                                             <p>Opción para conectarse, mediante los conectores metálicos de la parte
                                                 superior del dispositivo, con otros D-Tector u otros digivice y V-Pets
                                                 de Digimon.</p>
-                                            <p>Con V.S. Battle podrás combatir contra otros dispositivos.</p>
-                                            <p>Con TRADE podrás enviar o recibir digimon de otros dispositivos
-                                                compatibles.</p>
+                                            <p>Con V.S. Battle podrás combatir contra otros dispo
                                         </li>
                                     </ol>
                                 </div>
@@ -1074,7 +1112,7 @@
                     <div class="aside-controls" role="region" aria-label="Controles de la guía">
                         <button id="toggle-all" class="toggle-btn" aria-pressed="false" aria-label="Expandir todo">
                             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16">
                                 <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
@@ -1097,7 +1135,7 @@
                             <li><a href="#eventos-title">Eventos del juego</a></li>
                             <li><a href="#objetos-details">Digi-Objetos</a></li>
                             <li>
-                                <a href="digidigits.html" target="_blank" rel="noopener"
+                                <a href="digi-digits.html" target="_blank" rel="noopener"
                                     aria-label="Digi-Digits (se abre en una nueva pestaña)">
                                     Digi-Digits
                                     <svg class="icon-external" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -1131,7 +1169,8 @@
 
         <footer>
             <div class="muted" style="text-align:center; margin-top:14px;">
-                <a href="https://rubendmr96.github.io/rubensioshub/" rel="noopener noreferrer">Rubensio's Hub</a>
+                <a href="https://rubendmr96.github.io/rubensioshub/" rel="noopener noreferrer"
+                    style="color:var(--neon-blue);text-decoration:none;font-weight:700">Rubensio's Hub</a>
             </div>
         </footer>
     </div>
