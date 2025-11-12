@@ -28,7 +28,7 @@
             --base-size: 16px;
             --line-height: 1.6;
             --prose-max: 70ch;
-            --touch-min: 44px;
+            --touch-min: 48px;
         }
 
         *,
@@ -153,6 +153,7 @@
             font-size: 0.85rem
         }
 
+        /* Botón índice: por defecto oculto; en móvil se muestra como botón flotante abajo-derecha */
         .toc-toggle {
             display: none;
             background: transparent;
@@ -163,6 +164,9 @@
             font-weight: 700;
             cursor: pointer;
             backdrop-filter: blur(4px);
+            min-height: var(--touch-min);
+            align-items: center;
+            justify-content: center;
         }
 
         .toc-toggle:focus {
@@ -172,19 +176,29 @@
         }
 
         @media (max-width:880px) {
+
+            /* Mostrar siempre como botón flotante en la esquina inferior derecha */
             .toc-toggle {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                position: fixed;
-                right: 12px;
-                bottom: 12px;
-                z-index: 10002;
-                padding: 12px 14px;
-                border-radius: 12px;
-                background: #001a2a;
-                border: 1px solid rgba(0, 163, 255, 0.12);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6)
+                display: inline-flex !important;
+                position: fixed !important;
+                right: 14px !important;
+                bottom: 14px !important;
+                z-index: 10003 !important;
+                padding: 14px 16px !important;
+                border-radius: 14px !important;
+                background: linear-gradient(180deg, rgba(0, 26, 42, 0.95), rgba(0, 18, 28, 0.95)) !important;
+                border: 1px solid rgba(0, 163, 255, 0.12) !important;
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6) !important;
+                font-size: 0.95rem !important;
+                gap: 8px !important;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+
+            /* Evitar que el botón quede oculto por el back-button (si existe) */
+            .back-button {
+                left: 14px;
+                bottom: 14px
             }
         }
 
@@ -385,6 +399,20 @@
             border-radius: 8px
         }
 
+        /* Arrow icon rotation for expand/collapse */
+        .toggle-btn .arrow {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            transform-origin: 50% 50%;
+            transition: transform .18s ease;
+        }
+
+        /* Default: arrow points down (0deg). When active (everything expanded) rotate to point up */
+        .toggle-btn.active .arrow {
+            transform: rotate(180deg);
+        }
+
         .icon-back {
             width: 16px;
             height: 16px;
@@ -529,11 +557,7 @@
                 </div>
             </div>
 
-            <!-- TOC toggle for small screens (fixed via CSS) -->
-            <div>
-                <button id="toc-toggle" class="toc-toggle" aria-controls="aside-nav" aria-expanded="false"
-                    title="Mostrar índice">Índice</button>
-            </div>
+            <!-- Nota: el botón "Índice" se muestra como botón flotante en móvil (fuera del header) -->
         </header>
 
         <main id="main-content" tabindex="-1">
@@ -676,8 +700,8 @@
                                 opciones disponibles son:
                             </p>
 
-                            <details class="collapsible" id="menu1-details">
-                                <summary aria-controls="menu1-body" aria-expanded="false">Menú 1 — MAP, STATUS, SPIRITS,
+                            <details class="collapsible" id="menu1-details" open>
+                                <summary aria-controls="menu1-body" aria-expanded="true">Menú 1 — MAP, STATUS, SPIRITS,
                                     CAMP, CONNECT</summary>
                                 <div id="menu1-body" class="details-body">
                                     <ol>
@@ -761,8 +785,8 @@
                                 menú 1. Las opciones disponibles son:
                             </p>
 
-                            <details class="collapsible" id="menu2-details">
-                                <summary aria-controls="menu2-body" aria-expanded="false">Menú 2 — DIGI-DATABASE,
+                            <details class="collapsible" id="menu2-details" open>
+                                <summary aria-controls="menu2-body" aria-expanded="true">Menú 2 — DIGI-DATABASE,
                                     DIGI-DIGITS, GAME, DIGI-SEARCHER</summary>
                                 <div id="menu2-body" class="details-body">
                                     <ol start="6">
@@ -837,8 +861,8 @@
                     <article class="card prose" aria-labelledby="eventos-title">
                         <h2 id="eventos-title" class="section-title">Eventos del juego</h2>
 
-                        <details class="collapsible" id="eventos-details">
-                            <summary aria-controls="eventos-body" aria-expanded="false">Eventos del juego — Combates,
+                        <details class="collapsible" id="eventos-details" open>
+                            <summary aria-controls="eventos-body" aria-expanded="true">Eventos del juego — Combates,
                                 Tormentas de arena, Reencuentros</summary>
                             <div id="eventos-body" class="details-body">
                                 <p>
@@ -882,8 +906,8 @@
                                     <p>Una vez conocido lo básico de los combates, se explicarán las diferentes opciones
                                         del menú de navegación de los mismos.</p>
 
-                                    <details class="collapsible" id="combate-inicial-details">
-                                        <summary aria-controls="combate-inicial-body" aria-expanded="false">Menú de
+                                    <details class="collapsible" id="combate-inicial-details" open>
+                                        <summary aria-controls="combate-inicial-body" aria-expanded="true">Menú de
                                             combate inicial — resumen</summary>
                                         <div id="combate-inicial-body" class="details-body">
                                             <p>Este menú es el primero que aparece al comenzar un combate y consta de
@@ -952,8 +976,8 @@
                                         </div>
                                     </details>
 
-                                    <details class="collapsible" id="combate-digimon-details">
-                                        <summary aria-controls="combate-digimon-body" aria-expanded="false">Menú de
+                                    <details class="collapsible" id="combate-digimon-details" open>
+                                        <summary aria-controls="combate-digimon-body" aria-expanded="true">Menú de
                                             combate del digimon — resumen</summary>
                                         <div id="combate-digimon-body" class="details-body">
                                             <p>Este menú aparece después de invocar un digimon mediante BATTLE CALL y
@@ -996,8 +1020,8 @@
                                         </div>
                                     </details>
 
-                                    <details class="collapsible" id="combate-spirit-details">
-                                        <summary aria-controls="combate-spirit-body" aria-expanded="false">Menú de
+                                    <details class="collapsible" id="combate-spirit-details" open>
+                                        <summary aria-controls="combate-spirit-body" aria-expanded="true">Menú de
                                             combate del espíritu digital — resumen</summary>
                                         <div id="combate-spirit-body" class="details-body">
                                             <p>Una vez invocado un espíritu digital se accederá a este menú. Consta de
@@ -1072,8 +1096,8 @@
                     <article class="card prose" aria-labelledby="objetos-title">
                         <h2 id="objetos-title" class="section-title">Digi-Objetos</h2>
 
-                        <details class="collapsible" id="objetos-details">
-                            <summary aria-controls="objetos-body" aria-expanded="false">Digi-Objetos — chips,
+                        <details class="collapsible" id="objetos-details" open>
+                            <summary aria-controls="objetos-body" aria-expanded="true">Digi-Objetos — chips,
                                 suplementos y semillas</summary>
                             <div id="objetos-body" class="details-body">
                                 <p>Al jugar a SCANNING-ACTION o al utilizar con éxito el DIGI-SEARCHER puedes conseguir
@@ -1110,18 +1134,17 @@
                 <!-- Aside / navegación rápida -->
                 <aside id="aside-nav" class="aside-card card" aria-label="Navegación rápida" aria-hidden="true">
                     <div class="aside-controls" role="region" aria-label="Controles de la guía">
-                        <button id="toggle-all" class="toggle-btn" aria-pressed="false" aria-label="Expandir todo">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
+                        <!-- Toggle All: por defecto activo (todo expandido) -->
+                        <button id="toggle-all" class="toggle-btn active" aria-pressed="true"
+                            aria-label="Colapsar todo">
+                            <!-- Arrow icon: points down by default, rotated via .active to point up -->
+                            <svg class="arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+                                focusable="false" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6"></path>
                             </svg>
-                            <span class="toggle-label">Expandir todo</span>
+                            <span class="toggle-label">Colapsar todo</span>
                         </button>
-
-                        <!-- Close button for mobile overlay -->
-                        <button id="toc-close" class="toggle-btn" aria-label="Cerrar índice"
-                            style="display:none">Cerrar</button>
                     </div>
 
                     <h3 style="margin-top:0">En esta página</h3>
@@ -1135,7 +1158,7 @@
                             <li><a href="#eventos-title">Eventos del juego</a></li>
                             <li><a href="#objetos-details">Digi-Objetos</a></li>
                             <li>
-                                <a href="digi-digits.html" target="_blank" rel="noopener"
+                                <a href="digidigits.html" target="_blank" rel="noopener"
                                     aria-label="Digi-Digits (se abre en una nueva pestaña)">
                                     Digi-Digits
                                     <svg class="icon-external" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -1178,6 +1201,10 @@
     <!-- Backdrop for mobile aside overlay -->
     <div id="aside-backdrop" class="aside-backdrop" aria-hidden="true"></div>
 
+    <!-- Botón índice flotante (móvil): colocado fuera del header para garantizar posición bottom-right -->
+    <button id="toc-toggle" class="toc-toggle" aria-controls="aside-nav" aria-expanded="false"
+        aria-label="Mostrar índice" title="Mostrar índice">Índice</button>
+
     <a href="index.html" class="back-button" aria-label="Volver al inicio">
         <svg class="icon-back" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
             xmlns="http://www.w3.org/2000/svg">
@@ -1209,7 +1236,6 @@
             const details = Array.from(document.querySelectorAll('main details.collapsible'));
             const toggleAllBtn = document.getElementById('toggle-all');
             const tocToggle = document.getElementById('toc-toggle');
-            const tocClose = document.getElementById('toc-close');
             const aside = document.getElementById('aside-nav');
             const asideBackdrop = document.getElementById('aside-backdrop');
 
@@ -1222,13 +1248,23 @@
                 });
             }
 
-            // Toggle all button behavior
+            // Initialize "Toggle all" button and default state: everything expanded
             if (toggleAllBtn) {
+                // Ensure label and state reflect "all expanded" by default
+                toggleAllBtn.classList.add('active');
+                toggleAllBtn.setAttribute('aria-pressed', 'true');
+                const label = toggleAllBtn.querySelector('.toggle-label');
+                if (label) label.textContent = 'Colapsar todo';
+                // Make sure all details are open initially
+                setDetailsOpen(true);
+
+                // Click handler toggles between expand/collapse
                 toggleAllBtn.addEventListener('click', () => {
                     const active = toggleAllBtn.classList.toggle('active');
                     setDetailsOpen(active);
                     toggleAllBtn.setAttribute('aria-pressed', String(active));
-                    toggleAllBtn.querySelector('.toggle-label').textContent = active ? 'Colapsar todo' : 'Expandir todo';
+                    const lbl = toggleAllBtn.querySelector('.toggle-label');
+                    if (lbl) lbl.textContent = active ? 'Colapsar todo' : 'Expandir todo';
                 });
             }
 
@@ -1252,39 +1288,38 @@
             function openAsideOverlay() {
                 aside.classList.add('open');
                 aside.setAttribute('aria-hidden', 'false');
-                tocToggle.setAttribute('aria-expanded', 'true');
-                tocClose.style.display = 'inline-flex';
+                if (tocToggle) {
+                    tocToggle.setAttribute('aria-expanded', 'true');
+                    tocToggle.textContent = 'Cerrar';
+                    tocToggle.setAttribute('aria-label', 'Cerrar índice');
+                }
                 asideBackdrop.classList.add('show');
-
-                // hide floating button to avoid overlap
-                tocToggle.style.display = 'none';
 
                 // focus first interactive element inside aside
                 const firstFocusable = aside.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-                (firstFocusable || tocClose).focus();
+                (firstFocusable || tocToggle).focus();
             }
 
             function closeAsideOverlay() {
                 aside.classList.remove('open');
                 aside.setAttribute('aria-hidden', 'true');
-                tocToggle.setAttribute('aria-expanded', 'false');
-                tocClose.style.display = 'none';
+                if (tocToggle) {
+                    tocToggle.setAttribute('aria-expanded', 'false');
+                    tocToggle.textContent = 'Índice';
+                    tocToggle.setAttribute('aria-label', 'Mostrar índice');
+                }
                 asideBackdrop.classList.remove('show');
 
-                // restore floating button
-                tocToggle.style.display = 'inline-flex';
-
                 // return focus to toggle
-                tocToggle.focus();
+                if (tocToggle) tocToggle.focus();
             }
 
-            // Toggle handlers
+            // Toggle handlers for mobile TOC button
             if (tocToggle) {
                 tocToggle.addEventListener('click', () => {
                     aside.classList.contains('open') ? closeAsideOverlay() : openAsideOverlay();
                 });
             }
-            if (tocClose) tocClose.addEventListener('click', closeAsideOverlay);
             if (asideBackdrop) asideBackdrop.addEventListener('click', closeAsideOverlay);
 
             // Close on Escape
