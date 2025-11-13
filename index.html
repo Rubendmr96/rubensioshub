@@ -20,6 +20,8 @@
             --radius: 8px;
             --shadow-cyber: 0 0 20px rgba(0, 255, 136, 0.2), inset 0 0 20px rgba(0, 136, 255, 0.1);
             --max-width: 1100px;
+            --deprecated-accent: linear-gradient(135deg,#ff6600,#ff9933);
+            --construction-accent: linear-gradient(135deg,#ffd700,#ffcc00);
         }
 
         * {
@@ -170,8 +172,34 @@
             font-size: 1.2rem;
             margin: 0;
             color: var(--primary-blue);
-            text-shadow: 2px 2px 0px var(--dark-blue);
+            text-shadow:
+                2px 2px 0px var(--dark-blue),
+                0 0 5px var(--primary-green),
+                0 0 10px var(--primary-green),
+                0 0 15px var(--primary-green);
             line-height: 1.4;
+            animation: neon-breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes neon-breathe {
+
+            0%,
+            100% {
+                text-shadow:
+                    2px 2px 0px var(--dark-blue),
+                    0 0 5px var(--primary-green),
+                    0 0 10px var(--primary-green),
+                    0 0 15px var(--primary-green);
+            }
+
+            50% {
+                text-shadow:
+                    2px 2px 0px var(--dark-blue),
+                    0 0 8px var(--primary-green),
+                    0 0 16px var(--primary-green),
+                    0 0 24px var(--primary-green),
+                    0 0 32px rgba(0, 255, 136, 0.5);
+            }
         }
 
         p.lead {
@@ -206,8 +234,13 @@
                 padding: 15px;
             }
 
-            h1 {
+            .brand h1 {
                 font-size: 1rem;
+                text-shadow:
+                    1px 1px 0px var(--dark-blue),
+                    0 0 3px var(--primary-green),
+                    0 0 6px var(--primary-green),
+                    0 0 9px var(--primary-green);
             }
 
             p.lead {
@@ -241,6 +274,7 @@
             z-index: -1;
             animation: card-glow 6s linear infinite;
             opacity: 0.4;
+            border-radius: calc(var(--radius) + 2px);
         }
 
         @keyframes card-glow {
@@ -264,6 +298,69 @@
 
         .card:hover::before {
             opacity: 1;
+        }
+
+        /* Simple deprecation visual: orange border + small badge */
+        .card.deprecated {
+            border-color: rgba(255, 153, 51, 0.95);
+            filter: grayscale(8%);
+            box-shadow: 0 0 30px rgba(255, 153, 51, 0.18), inset 0 0 20px rgba(255, 120, 40, 0.06);
+        }
+
+        .card.deprecated::after {
+            content: 'DEPRECADO';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--deprecated-accent);
+            color: #000;
+            padding: 4px 8px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            border-radius: 4px;
+            transform: rotate(10deg);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Simple construction visual: yellow border + small badge + subtle pulse */
+        .card.construction {
+            border-color: rgba(255, 204, 0, 0.95);
+            filter: none;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.12), inset 0 0 20px rgba(255, 170, 0, 0.06);
+            animation: construction-pulse 3s ease-in-out infinite;
+        }
+
+        .card.construction::after {
+            content: 'EN CONSTRUCCIÓN';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--construction-accent);
+            color: #000;
+            padding: 4px 8px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            border-radius: 4px;
+            transform: rotate(6deg);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes construction-pulse {
+            0% {
+                box-shadow: 0 0 0 rgba(255, 204, 0, 0.0);
+            }
+
+            50% {
+                box-shadow: 0 0 18px rgba(255, 204, 0, 0.12);
+            }
+
+            100% {
+                box-shadow: 0 0 0 rgba(255, 204, 0, 0.0);
+            }
         }
 
         /* ICON CONTAINER: estilo cyber */
@@ -401,48 +498,118 @@
             left: 100%;
         }
 
-        .tag {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary-green);
-            border: 1px solid rgba(0, 255, 136, 0.3);
+        .placeholder {
+            color: #ccffcc;
+            font-size: 0.6rem;
+            text-align: center;
+            padding: 20px;
+            text-shadow: 1px 1px 0px #000000;
         }
 
-        /* Accessibility focus con estilo cyber */
-        .show-focus a:focus,
-        .show-focus button:focus {
-            outline: 3px solid rgba(0, 255, 136, 0.6);
-            outline-offset: 3px;
+        footer {
+            margin-top: 30px;
+            background: var(--glass-bg);
+            border: 2px solid var(--border-glow);
+            box-shadow: var(--shadow-cyber);
+            padding: 20px;
+            position: relative;
+            backdrop-filter: blur(8px);
             border-radius: var(--radius);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
         }
 
-        /* Media queries para responsive */
-        @media (max-width: 768px) {
+        footer::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg,
+                    rgba(0, 255, 136, 0.6),
+                    rgba(0, 136, 255, 0.6),
+                    rgba(0, 68, 102, 0.6),
+                    rgba(0, 255, 136, 0.6));
+            z-index: -1;
+            animation: card-glow 6s linear infinite;
+            opacity: 0.4;
+            border-radius: calc(var(--radius) + 2px);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-blue);
+            font-size: 0.6rem;
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 0px var(--dark-blue);
+        }
+
+        .footer-section a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 1px 1px 0px var(--dark-green);
+            font-size: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+            text-shadow: 1px 1px 0px var(--dark-blue);
+            transform: translateY(-1px);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .social-links svg {
+            flex-shrink: 0;
+        }
+
+        @media (max-width:640px) {
             body {
-                padding: 20px 10px;
+                padding: 20px 12px;
             }
 
             header {
+                flex-direction: column;
+                align-items: flex-start;
                 padding: 15px;
-                margin-bottom: 20px;
             }
 
-            .card {
-                padding: 15px;
-                gap: 12px;
+            .brand h1 {
+                font-size: 1rem;
+                text-shadow:
+                    1px 1px 0px var(--dark-blue),
+                    0 0 3px var(--primary-green),
+                    0 0 6px var(--primary-green),
+                    0 0 9px var(--primary-green);
             }
 
-            .meta h3 {
-                font-size: 0.65rem;
-            }
-
-            .meta p {
-                font-size: 0.45rem;
-            }
-
-            .card a.open {
-                font-size: 0.45rem;
-                padding: 8px 10px;
+            p.lead {
+                font-size: 0.55rem;
             }
         }
 
@@ -456,8 +623,7 @@
             }
 
             .card {
-                padding: 12px;
-                gap: 10px;
+                padding: 15px;
             }
 
             .icon {
@@ -479,6 +645,32 @@
                 font-size: 0.4rem;
                 padding: 6px 8px;
             }
+
+            footer {
+                padding: 15px;
+            }
+
+            .social-links a {
+                padding: 5px 6px;
+                gap: 6px;
+            }
+
+            .footer-section h4 {
+                font-size: 0.5rem;
+                margin-bottom: 10px;
+            }
+
+            .footer-section a {
+                font-size: 0.4rem;
+            }
+        }
+
+
+
+        .project-links a:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.6);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -491,7 +683,7 @@
             <div class="brand">
                 <div>
                     <h1>RUBENSIO'S HUB</h1>
-                    <p class="lead">CENTRO DE CONTROL DIGITAL - ACCESO A TODOS LOS PROYECTOS PERSONALES</p>
+                    <p class="lead">CENTRO DE CONTROL - ACCESO A TODOS LOS PROYECTOS PERSONALES</p>
                 </div>
             </div>
         </header>
@@ -511,7 +703,8 @@
                     <a class="open" href="https://depaseoporrocavelo.blogspot.com/" rel="noopener">ACCEDER</a>
                 </article>
 
-                <article class="card" data-tags="app,dashboard">
+                <!-- Card marcada visualmente como deprecada (simple y coherente con el estilo) -->
+                <article class="card deprecated" data-tags="app,dashboard" aria-labelledby="fron-title" aria-describedby="fron-desc">
                     <div class="icon" aria-hidden="true">
                         <img id="dtector-1" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo de D-Scan"
                             loading="lazy" width="56" height="56" class="no-crop"
@@ -526,13 +719,14 @@
                         </svg>
                     </div>
                     <div class="meta">
-                        <h3>LA FRONTERA DIGIMON</h3>
-                        <p>GUÍA DEL D-TECTOR DE DIGIMON</p>
+                        <h3 id="fron-title">LA FRONTERA DIGIMON</h3>
+                        <p id="fron-desc">GUÍA DEL D-TECTOR DE DIGIMON</p>
                     </div>
-                    <a class="open" href="https://fronteradigimon.vercel.app/" rel="noopener">ACCEDER</a>
+                    <a class="open" href="https://fronteradigimon.vercel.app/" rel="noopener" title="Sitio deprecado — puede contener contenido obsoleto">ACCEDER</a>
                 </article>
 
-                <article class="card" data-tags="app,dashboard">
+                <!-- Card en construcción: visual simple y coherente -->
+                <article class="card construction" data-tags="app,dashboard">
                     <div class="icon" aria-hidden="true">
                         <img id="dtector-2" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo de D-Scan"
                             loading="lazy" width="56" height="56" class="no-crop"
@@ -547,10 +741,26 @@
                         </svg>
                     </div>
                     <div class="meta">
-                        <h3>LA FRONTERA DIGIMON - EN CONSTRUCCIÓN</h3>
+                        <h3>LA FRONTERA DIGIMON</h3>
                         <p>GUÍA DEL D-TECTOR DE DIGIMON</p>
                     </div>
                     <a class="open" href="projects/la-frontera-digimon/index.html" rel="noopener">ACCEDER</a>
+                </article>
+
+                <!-- Card añadida: GitHub -->
+                <article class="card" data-tags="github,code">
+                    <div class="icon" aria-hidden="false" aria-label="GitHub de Rubén">
+                        <svg viewBox="0 0 24 24" width="56" height="56" role="img" aria-hidden="false"
+                            xmlns="http://www.w3.org/2000/svg" style="color:var(--primary-green);">
+                            <path fill="currentColor"
+                                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.744.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.381 1.235-3.221-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.911 1.23 3.221 0 4.61-2.805 5.625-5.475 5.92.429.372.81 1.102.81 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z" />
+                        </svg>
+                    </div>
+                    <div class="meta">
+                        <h3>GITHUB</h3>
+                        <p>REPOSITORIO Y PROYECTOS EN GITHUB</p>
+                    </div>
+                    <a class="open" href="https://github.com/Rubendmr96" rel="noopener">ACCEDER</a>
                 </article>
             </section>
         </main>
