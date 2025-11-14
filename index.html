@@ -18,10 +18,10 @@
             --glass-bg: rgba(0, 0, 0, 0.4);
             --border-glow: rgba(0, 255, 136, 0.6);
             --radius: 8px;
-            --shadow-cyber: 0 0 20px rgba(0, 255, 136, 0.2), inset 0 0 20px rgba(0, 136, 255, 0.1);
+            --shadow-cyber: 0 0 10px rgba(0, 255, 136, 0.1);
             --max-width: 1100px;
-            --deprecated-accent: linear-gradient(135deg,#ff6600,#ff9933);
-            --construction-accent: linear-gradient(135deg,#ffd700,#ffcc00);
+            --deprecated-accent: linear-gradient(135deg, #ff6600, #ff9933);
+            --construction-accent: linear-gradient(135deg, #ffd700, #ffcc00);
         }
 
         * {
@@ -38,9 +38,8 @@
 
         body {
             font-family: 'Press Start 2P', cursive;
-            background: linear-gradient(45deg, #003300, #001133, #002244, #0044ff, #002244, #001133);
-            background-size: 600% 600%;
-            animation: gradient-shift 12s ease-in-out infinite;
+            /* Fondo estático más simple */
+            background: linear-gradient(45deg, #003300, #001133, #002244);
             color: var(--primary-green);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -51,27 +50,7 @@
             min-height: 100vh;
         }
 
-        @keyframes gradient-shift {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            25% {
-                background-position: 50% 0%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            75% {
-                background-position: 50% 100%;
-            }
-        }
-
-        /* Fondo animado de matriz digital */
+        /* Fondo simplificado - sin animación constante */
         .digital-bg {
             position: fixed;
             top: 0;
@@ -82,8 +61,8 @@
                 linear-gradient(90deg, transparent 98%, #00ff8810 100%),
                 linear-gradient(180deg, transparent 98%, #0088ff10 100%);
             background-size: 20px 20px;
-            animation: matrix-scroll 20s linear infinite;
             z-index: -2;
+            /* Animación removida para reducir CPU */
         }
 
         .digital-bg::before {
@@ -92,12 +71,6 @@
             inset: 0;
             background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.2) 70%);
             z-index: -1;
-        }
-
-        @keyframes matrix-scroll {
-            to {
-                transform: translateY(20px);
-            }
         }
 
         .wrap {
@@ -118,32 +91,19 @@
             box-shadow: var(--shadow-cyber);
             padding: 20px;
             position: relative;
-            backdrop-filter: blur(8px);
+            /* backdrop-filter removido para mejor rendimiento */
         }
 
-        header::before {
+        /* Animación de borde simplificada - solo en hover */
+        header:hover::before {
             content: '';
             position: absolute;
             inset: -2px;
             background: linear-gradient(45deg,
                     rgba(0, 255, 136, 0.8),
-                    rgba(0, 136, 255, 0.8),
-                    rgba(0, 68, 102, 0.8),
-                    rgba(0, 255, 136, 0.8));
+                    rgba(0, 136, 255, 0.8));
             z-index: -1;
-            animation: border-glow 4s linear infinite;
-        }
-
-        @keyframes border-glow {
-
-            0%,
-            100% {
-                opacity: 0.6;
-            }
-
-            50% {
-                opacity: 1;
-            }
+            opacity: 0.8;
         }
 
         .brand {
@@ -172,34 +132,16 @@
             font-size: 1.2rem;
             margin: 0;
             color: var(--primary-blue);
-            text-shadow:
-                2px 2px 0px var(--dark-blue),
-                0 0 5px var(--primary-green),
-                0 0 10px var(--primary-green),
-                0 0 15px var(--primary-green);
+            /* Text-shadow simplificado */
+            text-shadow: 2px 2px 0px var(--dark-blue), 0 0 5px var(--primary-green);
             line-height: 1.4;
-            animation: neon-breathe 3s ease-in-out infinite;
+            /* Animación removida */
         }
 
-        @keyframes neon-breathe {
-
-            0%,
-            100% {
-                text-shadow:
-                    2px 2px 0px var(--dark-blue),
-                    0 0 5px var(--primary-green),
-                    0 0 10px var(--primary-green),
-                    0 0 15px var(--primary-green);
-            }
-
-            50% {
-                text-shadow:
-                    2px 2px 0px var(--dark-blue),
-                    0 0 8px var(--primary-green),
-                    0 0 16px var(--primary-green),
-                    0 0 24px var(--primary-green),
-                    0 0 32px rgba(0, 255, 136, 0.5);
-            }
+        /* Animación solo en hover para el título */
+        h1:hover {
+            text-shadow: 2px 2px 0px var(--dark-blue), 0 0 8px var(--primary-green), 0 0 16px var(--primary-green);
+            transition: text-shadow 0.3s ease;
         }
 
         p.lead {
@@ -236,11 +178,7 @@
 
             .brand h1 {
                 font-size: 1rem;
-                text-shadow:
-                    1px 1px 0px var(--dark-blue),
-                    0 0 3px var(--primary-green),
-                    0 0 6px var(--primary-green),
-                    0 0 9px var(--primary-green);
+                text-shadow: 1px 1px 0px var(--dark-blue), 0 0 3px var(--primary-green);
             }
 
             p.lead {
@@ -257,54 +195,34 @@
             display: flex;
             gap: 15px;
             align-items: flex-start;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            backdrop-filter: blur(8px);
+            /* backdrop-filter removido */
         }
 
-        .card::before {
+        /* Efectos solo en hover para reducir carga constante */
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .card:hover::before {
             content: '';
             position: absolute;
             inset: -2px;
             background: linear-gradient(45deg,
                     rgba(0, 255, 136, 0.6),
-                    rgba(0, 136, 255, 0.6),
-                    rgba(0, 68, 102, 0.6),
-                    rgba(0, 255, 136, 0.6));
+                    rgba(0, 136, 255, 0.6));
             z-index: -1;
-            animation: card-glow 6s linear infinite;
-            opacity: 0.4;
+            opacity: 0.8;
             border-radius: calc(var(--radius) + 2px);
         }
 
-        @keyframes card-glow {
-
-            0%,
-            100% {
-                opacity: 0.4;
-            }
-
-            50% {
-                opacity: 0.8;
-            }
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow:
-                0 0 40px rgba(0, 255, 136, 0.4),
-                inset 0 0 40px rgba(0, 136, 255, 0.2);
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        /* Simple deprecation visual: orange border + small badge */
+        /* Estilos deprecado simplificados */
         .card.deprecated {
             border-color: rgba(255, 153, 51, 0.95);
             filter: grayscale(8%);
-            box-shadow: 0 0 30px rgba(255, 153, 51, 0.18), inset 0 0 20px rgba(255, 120, 40, 0.06);
+            box-shadow: 0 0 15px rgba(255, 153, 51, 0.15);
         }
 
         .card.deprecated::after {
@@ -324,12 +242,11 @@
             z-index: 2;
         }
 
-        /* Simple construction visual: yellow border + small badge + subtle pulse */
+        /* Construcción simplificado */
         .card.construction {
             border-color: rgba(255, 204, 0, 0.95);
-            filter: none;
-            box-shadow: 0 0 30px rgba(255, 204, 0, 0.12), inset 0 0 20px rgba(255, 170, 0, 0.06);
-            animation: construction-pulse 3s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.12);
+            /* Animación removida */
         }
 
         .card.construction::after {
@@ -349,21 +266,7 @@
             z-index: 2;
         }
 
-        @keyframes construction-pulse {
-            0% {
-                box-shadow: 0 0 0 rgba(255, 204, 0, 0.0);
-            }
-
-            50% {
-                box-shadow: 0 0 18px rgba(255, 204, 0, 0.12);
-            }
-
-            100% {
-                box-shadow: 0 0 0 rgba(255, 204, 0, 0.0);
-            }
-        }
-
-        /* ICON CONTAINER: estilo cyber */
+        /* Icono simplificado */
         .icon {
             width: 56px;
             height: 56px;
@@ -375,14 +278,13 @@
             flex: 0 0 56px;
             border: 2px solid rgba(0, 255, 136, 0.4);
             background: rgba(0, 0, 0, 0.6);
-            box-shadow:
-                0 0 15px rgba(0, 255, 136, 0.2),
-                inset 0 0 15px rgba(0, 136, 255, 0.1);
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.1);
             padding: 4px;
             position: relative;
         }
 
-        .icon::before {
+        /* Efecto shine solo en hover */
+        .icon:hover::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -390,22 +292,9 @@
                     transparent,
                     rgba(0, 255, 136, 0.1),
                     transparent);
-            animation: icon-shine 3s ease-in-out infinite;
+            opacity: 1;
         }
 
-        @keyframes icon-shine {
-
-            0%,
-            100% {
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* IMAGEN DENTRO DEL ICON */
         .icon img {
             display: block;
             width: auto;
@@ -513,21 +402,17 @@
             box-shadow: var(--shadow-cyber);
             padding: 20px;
             position: relative;
-            backdrop-filter: blur(8px);
             border-radius: var(--radius);
         }
 
-        footer::before {
+        footer:hover::before {
             content: '';
             position: absolute;
             inset: -2px;
             background: linear-gradient(45deg,
                     rgba(0, 255, 136, 0.6),
-                    rgba(0, 136, 255, 0.6),
-                    rgba(0, 68, 102, 0.6),
-                    rgba(0, 255, 136, 0.6));
+                    rgba(0, 136, 255, 0.6));
             z-index: -1;
-            animation: card-glow 6s linear infinite;
             opacity: 0.4;
             border-radius: calc(var(--radius) + 2px);
         }
@@ -601,11 +486,7 @@
 
             .brand h1 {
                 font-size: 1rem;
-                text-shadow:
-                    1px 1px 0px var(--dark-blue),
-                    0 0 3px var(--primary-green),
-                    0 0 6px var(--primary-green),
-                    0 0 9px var(--primary-green);
+                text-shadow: 1px 1px 0px var(--dark-blue), 0 0 3px var(--primary-green);
             }
 
             p.lead {
@@ -665,12 +546,19 @@
             }
         }
 
-
-
         .project-links a:hover {
             background: rgba(0, 255, 136, 0.1);
             border-color: rgba(0, 255, 136, 0.6);
             transform: translateY(-2px);
+        }
+
+        /* Clase para reducir animaciones en dispositivos de bajo rendimiento */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -703,8 +591,8 @@
                     <a class="open" href="https://depaseoporrocavelo.blogspot.com/" rel="noopener">ACCEDER</a>
                 </article>
 
-                <!-- Card marcada visualmente como deprecada (simple y coherente con el estilo) -->
-                <article class="card deprecated" data-tags="app,dashboard" aria-labelledby="fron-title" aria-describedby="fron-desc">
+                <article class="card deprecated" data-tags="app,dashboard" aria-labelledby="fron-title"
+                    aria-describedby="fron-desc">
                     <div class="icon" aria-hidden="true">
                         <img id="dtector-1" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo de D-Scan"
                             loading="lazy" width="56" height="56" class="no-crop"
@@ -722,10 +610,10 @@
                         <h3 id="fron-title">LA FRONTERA DIGIMON</h3>
                         <p id="fron-desc">GUÍA DEL D-TECTOR DE DIGIMON</p>
                     </div>
-                    <a class="open" href="https://fronteradigimon.vercel.app/" rel="noopener" title="Sitio deprecado — puede contener contenido obsoleto">ACCEDER</a>
+                    <a class="open" href="https://fronteradigimon.vercel.app/" rel="noopener"
+                        title="Sitio deprecado — puede contener contenido obsoleto">ACCEDER</a>
                 </article>
 
-                <!-- Card en construcción: visual simple y coherente -->
                 <article class="card construction" data-tags="app,dashboard">
                     <div class="icon" aria-hidden="true">
                         <img id="dtector-2" src="assets/images/icons/d-tector_transparent.png" alt="Logotipo de D-Scan"
@@ -747,7 +635,6 @@
                     <a class="open" href="projects/la-frontera-digimon/index.html" rel="noopener">ACCEDER</a>
                 </article>
 
-                <!-- Card añadida: GitHub -->
                 <article class="card" data-tags="github,code">
                     <div class="icon" aria-hidden="false" aria-label="GitHub de Rubén">
                         <svg viewBox="0 0 24 24" width="56" height="56" role="img" aria-hidden="false"
@@ -775,7 +662,6 @@
                 const svg = document.getElementById(id + '-fallback');
                 if (svg) svg.style.display = 'block';
             });
-            // Si la imagen carga correctamente, aseguramos que el fallback esté oculto
             img.addEventListener('load', () => {
                 const svg = document.getElementById(id + '-fallback');
                 if (svg) svg.style.display = 'none';

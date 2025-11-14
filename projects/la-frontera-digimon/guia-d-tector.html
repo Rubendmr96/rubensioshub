@@ -29,26 +29,37 @@
             --line-height: 1.6;
             --prose-max: 70ch;
             --touch-min: 48px;
+
+            /* Variables adicionales para replicar el estilo del index.html sin alterar otras cards */
+            --primary-green: #00ff88;
+            --primary-blue: #0088ff;
+            --dark-green: #004422;
+            --dark-blue: #002244;
+            --cyber-glow: rgba(0, 255, 136, 0.3);
+            --glass-bg: rgba(0, 0, 0, 0.4);
+            --border-glow: rgba(0, 255, 136, 0.6);
         }
 
+        /* Reset y box-sizing */
         *,
         *::before,
         *::after {
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
         html {
             font-size: var(--base-size);
             -webkit-text-size-adjust: 100%;
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
         }
 
-        @media (prefers-reduced-motion:reduce) {
+        @media (prefers-reduced-motion: reduce) {
             html {
-                scroll-behavior: auto
+                scroll-behavior: auto;
             }
         }
 
+        /* Body y fondo */
         body {
             margin: 0;
             min-height: 100%;
@@ -82,17 +93,17 @@
 
         .wrap {
             width: 100%;
-            max-width: var(--max-width)
+            max-width: var(--max-width);
         }
 
-        /* Skip link */
+        /* Skip link accesible */
         .skip-link {
             position: absolute;
             left: -999px;
             top: auto;
             width: 1px;
             height: 1px;
-            overflow: hidden
+            overflow: hidden;
         }
 
         .skip-link:focus {
@@ -104,59 +115,115 @@
             background: var(--neon-blue);
             color: #001;
             border-radius: 8px;
-            z-index: 9999
+            z-index: 9999;
         }
 
+        /* HEADER: estilo idéntico al index.html (solo afecta al elemento header) */
         header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
             justify-content: space-between;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
-            padding: 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 163, 255, 0.08);
+            gap: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background: var(--glass-bg);
+            border: 2px solid var(--border-glow);
             box-shadow: var(--shadow-cyber);
-            backdrop-filter: blur(6px);
+            padding: 20px;
+            position: relative;
+            border-radius: 0;
         }
 
+        /* efecto de borde glow igual que en index.html */
+        header:hover::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg,
+                    rgba(0, 255, 136, 0.8),
+                    rgba(0, 136, 255, 0.8),
+                    rgba(0, 68, 102, 0.8),
+                    rgba(0, 255, 136, 0.8));
+            z-index: -1;
+            animation: border-glow 2s ease-in-out;
+        }
+
+        @keyframes border-glow {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Header-left: espaciado igual al index */
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px
+            gap: 15px;
         }
 
+        /* Icono del header: tamaño y estilo igual al index */
         .header-icon {
-            height: clamp(40px, 6vh, 72px);
+            height: 56px;
             width: auto;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 8px;
+            /* coincide con el estilo del index para el icono */
+            border: 2px solid rgba(0, 255, 136, 0.4);
+            padding: 4px;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
             flex: 0 0 auto;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55));
-            border: 1px solid rgba(0, 255, 136, 0.08);
-            padding: 6px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(0, 163, 255, 0.03);
         }
 
+        /* BRAND / TITULO: tipografía y efectos replicando el index.html */
         .brand h1 {
             font-size: 1.1rem;
             margin: 0;
-            color: var(--neon-blue);
+            color: var(--primary-blue);
             font-family: 'Press Start 2P', monospace;
-            line-height: 1.2;
+            text-shadow:
+                2px 2px 0px var(--dark-blue),
+                0 0 5px var(--primary-green);
+            line-height: 1.4;
         }
 
-        /* Subtítulo más visible (cambio solicitado) */
+        .brand h1:hover {
+            animation: neon-breathe 1.5s ease-in-out;
+        }
+
+        @keyframes neon-breathe {
+
+            0%,
+            100% {
+                text-shadow:
+                    2px 2px 0px var(--dark-blue),
+                    0 0 5px var(--primary-green);
+            }
+
+            50% {
+                text-shadow:
+                    2px 2px 0px var(--dark-blue),
+                    0 0 8px var(--primary-green),
+                    0 0 16px var(--primary-green);
+            }
+        }
+
+        /* Subtítulo con tamaño y color igual al index */
         .brand p {
             margin: 8px 0 0 0;
             color: #ccffcc;
-            font-size: 0.95rem;
-            /* aumentado para mayor visibilidad */
-            font-weight: 700;
-            /* un poco más de peso para destacar */
-            line-height: 1.2;
+            font-size: 0.6rem;
+            line-height: 1.6;
             text-shadow: 1px 1px 0px #000000;
+            font-family: 'Press Start 2P', cursive;
+            font-weight: 400;
+            letter-spacing: 0;
         }
 
         /* Botón índice: por defecto oculto; en móvil se muestra como botón flotante abajo-derecha */
@@ -178,7 +245,7 @@
         .toc-toggle:focus {
             outline: 3px solid rgba(0, 163, 255, 0.12);
             outline-offset: 3px;
-            border-radius: 8px
+            border-radius: 8px;
         }
 
         @media (max-width:880px) {
@@ -204,11 +271,11 @@
             /* Evitar que el botón quede oculto por el back-button (si existe) */
             .back-button {
                 left: 14px;
-                bottom: 14px
+                bottom: 14px;
             }
         }
 
-        /* Cards y tipografía */
+        /* Mantener el estilo original de las demás cards (no tocar) */
         .card {
             background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.35));
             border-radius: var(--radius);
@@ -218,17 +285,18 @@
             margin-bottom: 14px;
         }
 
+        /* Tipografía y encabezados */
         h1,
         h2,
         h3,
         h4 {
             margin: 0 0 10px 0;
             color: var(--neon-blue);
-            line-height: 1.15
+            line-height: 1.15;
         }
 
         h1 {
-            font-size: 1.5rem
+            font-size: 1.5rem;
         }
 
         h2.section-title {
@@ -236,64 +304,64 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             padding-bottom: 8px;
             margin-bottom: 12px;
-            color: var(--neon-green)
+            color: var(--neon-green);
         }
 
         h3 {
             font-size: 1rem;
             margin-top: 8px;
-            color: var(--neon-blue)
+            color: var(--neon-blue);
         }
 
         p {
             margin: 0 0 12px 0;
-            color: #dff7ff
+            color: #dff7ff;
         }
 
         .lead-paragraph {
             color: var(--muted);
-            margin-bottom: 12px
+            margin-bottom: 12px;
         }
 
         .muted {
-            color: #9fbff6
+            color: #9fbff6;
         }
 
         ol,
         ul {
-            margin: 0 0 12px 1.1rem
+            margin: 0 0 12px 1.1rem;
         }
 
         li {
-            margin-bottom: 8px
+            margin-bottom: 8px;
         }
 
         a {
             color: var(--neon-blue);
-            text-decoration: none
+            text-decoration: none;
         }
 
         a:hover,
         a:focus {
-            text-decoration: underline
+            text-decoration: underline;
         }
 
         /* Grid principal */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px
+            gap: 12px;
         }
 
         @media (min-width:880px) {
             .content-grid {
                 grid-template-columns: 1fr 320px;
-                align-items: start
+                align-items: start;
             }
 
             .aside-card {
                 position: sticky;
-                top: 24px
+                top: 24px;
             }
         }
 
@@ -301,11 +369,11 @@
         nav ul {
             list-style: none;
             padding: 0;
-            margin: 0
+            margin: 0;
         }
 
         nav li {
-            margin-bottom: 8px
+            margin-bottom: 8px;
         }
 
         nav a {
@@ -314,18 +382,18 @@
             border-radius: 8px;
             color: var(--neon-green);
             min-height: var(--touch-min);
-            line-height: 1.2
+            line-height: 1.2;
         }
 
         nav a:hover,
         nav a:focus {
             background: rgba(0, 163, 255, 0.04);
-            outline: none
+            outline: none;
         }
 
         nav a[aria-current="true"] {
             font-weight: 700;
-            background: rgba(0, 255, 136, 0.06)
+            background: rgba(0, 255, 136, 0.06);
         }
 
         /* Summary / details styling */
@@ -333,7 +401,7 @@
             margin-bottom: 12px;
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(0, 163, 255, 0.04)
+            border: 1px solid rgba(0, 163, 255, 0.04);
         }
 
         details summary {
@@ -346,11 +414,11 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             font-weight: 700;
             border-radius: 8px;
-            color: var(--neon-blue)
+            color: var(--neon-blue);
         }
 
         details summary::-webkit-details-marker {
-            display: none
+            display: none;
         }
 
         details summary::after {
@@ -358,17 +426,17 @@
             margin-left: auto;
             transform: rotate(0deg);
             transition: transform .18s ease;
-            color: var(--neon-green)
+            color: var(--neon-green);
         }
 
         details[open] summary::after {
-            transform: rotate(90deg)
+            transform: rotate(90deg);
         }
 
         details .details-body {
             padding: 12px;
             background: transparent;
-            color: #dff7ff
+            color: #dff7ff;
         }
 
         /* Aside controls */
@@ -376,7 +444,7 @@
             display: flex;
             gap: 8px;
             align-items: center;
-            margin-bottom: 12px
+            margin-bottom: 12px;
         }
 
         .toggle-btn {
@@ -389,20 +457,20 @@
             padding: 6px 10px;
             border-radius: 8px;
             font-weight: 700;
-            cursor: pointer
+            cursor: pointer;
         }
 
         .toggle-btn.active {
             background: var(--neon-blue);
             color: #001;
             border-color: var(--neon-blue);
-            box-shadow: 0 6px 18px rgba(0, 163, 255, 0.12)
+            box-shadow: 0 6px 18px rgba(0, 163, 255, 0.12);
         }
 
         .toggle-btn:focus {
             outline: 3px solid rgba(0, 163, 255, 0.12);
             outline-offset: 3px;
-            border-radius: 8px
+            border-radius: 8px;
         }
 
         /* Arrow icon rotation for expand/collapse */
@@ -425,13 +493,13 @@
             vertical-align: middle;
             margin-right: 8px;
             fill: currentColor;
-            display: inline-block
+            display: inline-block;
         }
 
         /* Mobile overlay behavior for aside */
         @media (max-width:879px) {
             .aside-card {
-                display: none
+                display: none;
             }
 
             .aside-card.open {
@@ -444,7 +512,7 @@
                 background: rgba(0, 0, 0, 0.92);
                 backdrop-filter: blur(6px);
                 border-radius: 12px;
-                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6)
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
             }
 
             .aside-backdrop {
@@ -454,39 +522,41 @@
                 background: rgba(0, 0, 0, 0.6);
                 opacity: 0;
                 transition: opacity .18s ease;
-                pointer-events: none
+                pointer-events: none;
             }
 
             .aside-backdrop.show {
                 opacity: 1;
-                pointer-events: auto
+                pointer-events: auto;
             }
 
             nav a {
                 display: block;
-                padding: 12px 14px
+                padding: 12px 14px;
             }
 
+            /* Mantener apariencia más simple en móvil para las cards */
             .card {
                 box-shadow: none;
-                border: 1px solid rgba(0, 163, 255, 0.04)
+                border: 1px solid rgba(0, 163, 255, 0.04);
             }
         }
 
         .prose {
-            max-width: var(--prose-max)
+            max-width: var(--prose-max);
         }
 
         @media (max-width:640px) {
             body {
-                padding: 20px 12px
+                padding: 20px 12px;
             }
 
             .card {
-                padding: 16px
+                padding: 16px;
             }
         }
 
+        /* Back button (móvil) */
         .back-button {
             display: none;
             position: fixed;
@@ -503,7 +573,7 @@
             text-decoration: none;
             align-items: center;
             gap: 6px;
-            font-size: 0.95rem
+            font-size: 0.95rem;
         }
 
         .back-button .icon-back {
@@ -511,23 +581,23 @@
             height: 16px;
             margin-right: 6px;
             vertical-align: middle;
-            fill: currentColor
+            fill: currentColor;
         }
 
         @media (max-width:879px) {
             .back-button {
-                display: inline-flex
+                display: inline-flex;
             }
         }
 
         /* Small tweaks for readability */
         code,
         pre {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
         }
 
         strong {
-            color: var(--neon-green)
+            color: var(--neon-green);
         }
     </style>
 </head>
@@ -545,8 +615,8 @@
                         loading="lazy" width="56" height="56">
                 </a>
                 <div class="brand">
-                    <h1>Guía D-Tector</h1>
-                    <p>Aprende a jugar con el D-Tector</p>
+                    <h1>GUÍA D-TECTOR</h1>
+                    <p>SE UN MAESTRO DEL D-TECTOR</p>
                 </div>
             </div>
             <div aria-hidden="true" style="width:1px;height:1px"></div>
@@ -1205,7 +1275,7 @@
             <path d="M12 19l-7-7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                 stroke-linejoin="round" />
         </svg>
-        <span class="back-label">Inicio</span>
+        <span class="back-label">Volver</span>
     </a>
 
 
