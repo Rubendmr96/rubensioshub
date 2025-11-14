@@ -1,5 +1,4 @@
 # rubensioshub
-Rubensio's Hub is a hub for all of my media
+Rubensio's Hub is a hub for all of my projects
 
-Main hub:
 https://rubendmr96.github.io/rubensioshub/index.html
